@@ -12,17 +12,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ProjectMomo.ViewModel;
 
 namespace ProjectMomo.View
 {
-    /// <summary>
-    /// Interaction logic for MainPageView.xaml
-    /// </summary>
-    public partial class MainPageView : Page
+  /// <summary>
+  /// Interaction logic for HomePageView.xaml
+  /// </summary>
+  public partial class HomePageView : UserControl
+  {
+    public HomePageView()
     {
-        public MainPageView()
-        {
-            InitializeComponent();
-        }
+      InitializeComponent();
     }
+
+  }
 }

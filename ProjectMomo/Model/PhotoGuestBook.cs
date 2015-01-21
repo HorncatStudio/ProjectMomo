@@ -7,20 +7,27 @@ using ProjectMomo.Helpers;
 
 namespace ProjectMomo.Model
 {
-  public class PhotoGuestBook : FetchPictureListener
+  public class PhotoGuestBook : ProjectMomoTab, FetchPictureListener
   {
-    List<Guest> _Guests;
-    Guest _CurrentGuest;
+    public List<Guest> Guests;
+    private Guest _CurrentGuest;
+
+    public PhotoGuestBook()
+    {
+      Header = "GUESTBOOK";
+      Guests = new List<Guest>();
+      _CurrentGuest = null;
+    }
 
     public void loadGuests( List<Guest> guests )
     {
-      _Guests = guests;
+      Guests = guests;
     }
 
     public void setCurrentGuest( Guest guest )
     {
       //! TODO: throw exception here maybe?
-      if (!_Guests.Contains(guest))
+      if (!Guests.Contains(guest))
         return;
 
       _CurrentGuest = guest;
@@ -28,6 +35,9 @@ namespace ProjectMomo.Model
   
     public void onFetchPicture(ShowerPicture image)
     {
+      if (null == _CurrentGuest)
+        return;
+
       _CurrentGuest.addGuestBookPicture(image);
     }
   }

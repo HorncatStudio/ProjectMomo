@@ -14,22 +14,17 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ProjectMomo.ViewModel;
 
-namespace ProjectMomo
+namespace ProjectMomo.View
 {
   /// <summary>
-  /// Interaction logic for MainWindow.xaml
+  /// Interaction logic for PhotoGuestBookView.xaml
   /// </summary>
-  public partial class MainWindow : Window
-  {   
-
-    public MainWindow()
+  public partial class PhotoGuestBookView : UserControl
+  {
+    public PhotoGuestBookView()
     {
       InitializeComponent();
-    }
-
-    public void SetStatusBarText( string text )
-    {
-      labelActiveShower.Text = text;
+      DataContext = new PhotoGuestBookViewModel();
     }
   }
 }

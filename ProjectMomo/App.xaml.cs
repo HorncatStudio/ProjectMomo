@@ -13,12 +13,12 @@ namespace ProjectMomo
   /// </summary>
   public partial class App : Application
   {
-    ProjectMomo mainApplication;
+    ProjectMomo _mainApplication;
 
     private void Application_Startup(object sender, StartupEventArgs e)
     {
-      mainApplication = new ProjectMomo();
-      mainApplication.Start();
+      _mainApplication = new ProjectMomo();
+      _mainApplication.Start();
     }
   }
 }

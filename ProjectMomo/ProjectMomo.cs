@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ProjectMomo.View;
 using ProjectMomo.Helpers;
 using ProjectMomo.Model;
+using ProjectMomo.ViewModel;
 
 namespace ProjectMomo
 {
@@ -19,35 +20,40 @@ namespace ProjectMomo
   public class ProjectMomo
   {
     // Infrastrucutre
-    IFetchPictureService _FetchPitureService;
-    IShowerRepository _ShowerRepository;
+    private IFetchPictureService _FetchPitureService;
+    private IShowerRepository _ShowerRepository;
 
     // Models
-    Shower _CurrentShower;
-    PhotoGuestBook _GuestBook;
+    private Shower _currentShower;
+    private PhotoGuestBook _guestBook;
+    private ProjectMomoTab _homePage;
 
     // ViewModels
-      
+    private MainWindowViewModel _mainWindowViewModel_;
+
     // View
-    MainWindow _MainWindow;
+    MainWindow _mainWindow;
 
     public ProjectMomo()
     {
       _FetchPitureService = new FakeFetchPictureService();
       _ShowerRepository = new FakeShowerRepository();
 
-      _CurrentShower = new Shower();
-      _GuestBook = new PhotoGuestBook();
+      _currentShower = new Shower();
+      _guestBook = new PhotoGuestBook();
 
-      _MainWindow = new MainWindow();
+      _mainWindowViewModel_ = new MainWindowViewModel();
+
+      _mainWindow = new MainWindow();
+      _mainWindow.DataContext = _mainWindowViewModel_;
     }
 
     public void Start()
     {
-      _CurrentShower = _ShowerRepository.GetShower();
-      _GuestBook.loadGuests(_CurrentShower.Guests);
-      _MainWindow.SetStatusBarText(_CurrentShower.showerName());
-      _MainWindow.Show();
+      _currentShower = _ShowerRepository.GetShower();
+      _guestBook.loadGuests(_currentShower.Guests);
+      _mainWindow.SetStatusBarText(_currentShower.showerName());
+      _mainWindow.Show();
     }
   }
 }
