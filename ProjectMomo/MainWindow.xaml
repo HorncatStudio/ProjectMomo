@@ -18,7 +18,7 @@
           <view:PhotoGuestBookView/>
         </DataTemplate>
 
-        <!--<Style TargetType="TabItem">
+        <Style TargetType="TabItem">
           <Setter Property="Template">
             <Setter.Value>
               <ControlTemplate TargetType="TabItem">
@@ -32,15 +32,19 @@
                 <ControlTemplate.Triggers>
                   <Trigger Property="IsSelected" Value="True">
                     <Setter TargetName="Panel" Property="Background" Value="LightSkyBlue" />
+                    <Setter Property="FontFamily" Value="Segoe UI Light"/>
+                    <Setter Property="FontSize" Value="26"/>
                   </Trigger>
                   <Trigger Property="IsSelected" Value="False">
                     <Setter TargetName="Panel" Property="Background" Value="White" />
+                    <Setter Property="FontFamily" Value="Segoe UI Light"/>
+                    <Setter Property="FontSize" Value="26"/>
                   </Trigger>
                 </ControlTemplate.Triggers>
               </ControlTemplate>
             </Setter.Value>
           </Setter>
-        </Style>-->
+        </Style>
 
       </TabControl.Resources>
 
@@ -50,31 +54,6 @@
         </DataTemplate>
       </TabControl.ItemTemplate>
 
-      <!--<TabControl.ContentTemplate>
-        <DataTemplate DataType="x:Type ViewModel:TabViewModel">
-          <view:HomePageView/>
-        </DataTemplate>
-        <DataTemplate DataType="x:Type vm:PhotoGuestBookViewModel">
-          <view:PhotoGuestBookView/>
-        </DataTemplate>
-      </TabControl.ContentTemplate>-->
-
-    
-    <!--<TabItem Header="MAIN" FontSize="20">
-        <Grid Background="White" Margin="0,-22,0,22"></Grid>
-      </TabItem>
-      <TabItem Header="GUEST BOOK" FontSize="20">
-        <Grid Background="#FFE5E5E5"/>
-      </TabItem>
-      <TabItem Header="GIFTS" FontSize="20">
-        <Grid Background="#FFE5E5E5"/>
-      </TabItem>
-      <TabItem Header="MANAGA" FontSize="20">
-        <Grid Background="#FFE5E5E5"/>
-      </TabItem>
-      <TabItem Header="SETTINGS" FontSize="20">
-        <Grid Background="#FFE5E5E5"/>
-      </TabItem>-->
     </TabControl>
     <StatusBar Margin="0,293,0,0" Grid.ColumnSpan="2">
       <TextBlock TextWrapping="Wrap" Name="labelActiveShower" Text="TextBlock"/>
