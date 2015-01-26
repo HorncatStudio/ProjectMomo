@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Navigation;
@@ -8,38 +10,27 @@ namespace ProjectMomo.ViewModel
 {
   public class HomePageViewModel : TabViewModel
   {
-    private SectionNavigation navigation_;
+    private List<SectionNavigation> _navigation;
 
     public ICommand ButtonCommand { get; set; }
 
     public HomePageViewModel()
     {
-      navigation_ = null;
-      Header = "HOME";
+      _navigation = new List<SectionNavigation>();
+      Header = Application.Current.FindResource("HomeHeader").ToString();
       ButtonCommand = new RelayCommand(new Action<object>(Navigate));
     }
 
     public void RegisterNavigation(SectionNavigation navigation)
     {
-      navigation_ = navigation;
-
+      _navigation.Add(navigation);
     }
 
     private void Navigate(object obj)
     {
-      if (null == navigation_)
-        return;
-
-      //MessageBox.Show(obj.ToString());
-
-      switch (obj.ToString())
+      foreach (var nav in _navigation)
       {
-        case "GuestBook":
-          navigation_.DisplayGuestBook();
-          break;
-        case "Home":
-          navigation_.DisplayHomePage();
-          break;
+        nav.DisplaySection(obj.ToString());
       }
     }
   }

@@ -63,6 +63,7 @@
     <Compile Include="Helpers\IShowerRepository.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Helpers\SectionNavigation.cs" />
+    <Compile Include="Helpers\ShowerImageRouter.cs" />
     <Compile Include="Model\Guest.cs" />
     <Compile Include="Model\PhotoGuestBook.cs" />
     <Compile Include="Model\ProjectMomoTab.cs" />

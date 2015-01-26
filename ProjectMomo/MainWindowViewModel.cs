@@ -9,6 +9,7 @@ namespace ProjectMomo
   public class MainWindowViewModel : SectionNavigation, INotifyPropertyChanged
   {
     public ObservableCollection<TabViewModel> Tabs { get; set; }
+    private ShowerImageRouter _imageRouter = null;
 
     private TabViewModel _selectedTab;
     public TabViewModel SelectedTab
@@ -17,50 +18,38 @@ namespace ProjectMomo
       set
       {
         _selectedTab = value;
+        UpdateImageRouter(_selectedTab.Header); // kind of hacky way but oh well, it works for now
         OnPropertyChanged("SelectedTab");
       }
     }
 
-    private HomePageViewModel _homePageViewModel;
-    private PhotoGuestBookViewModel _guestBookViewModel;
-
     public MainWindowViewModel()
+      : this(null)
+    {
+    }
+
+    public MainWindowViewModel(ShowerImageRouter imageRouter)
     {
       Tabs = new ObservableCollection<TabViewModel>();
-      _homePageViewModel = new HomePageViewModel();
-      _guestBookViewModel = new PhotoGuestBookViewModel();
-
-      Tabs.Add(_homePageViewModel);
-      Tabs.Add(_guestBookViewModel);
-
-      _selectedTab = _homePageViewModel;
-
-      _homePageViewModel.RegisterNavigation(this);
+      _imageRouter = imageRouter;
     }
 
-    public void DisplayHomePage()
+    private void UpdateImageRouter(string imageRoute)
     {
-      SelectedTab = _homePageViewModel;
+      if (null != _imageRouter)
+        _imageRouter.CurrentRoute = imageRoute;
     }
 
-    public void DisplayGuestBook()
+    public void DisplaySection(string sectionHeader)
     {
-      SelectedTab = _guestBookViewModel;
-    }
-
-    public void DisplayGiftPage()
-    {
-      throw new System.NotImplementedException();
-    }
-
-    public void DisplayManagePage()
-    {
-      throw new System.NotImplementedException();
-    }
-
-    public void DisplaySettingsPage()
-    {
-      throw new System.NotImplementedException();
+      foreach (var tab in Tabs)
+      {
+        if (sectionHeader == tab.Header)
+        {
+          SelectedTab = tab;
+          return;
+        }
+      }
     }
 
     public event PropertyChangedEventHandler PropertyChanged;
@@ -70,5 +59,7 @@ namespace ProjectMomo
       var handler = PropertyChanged;
       if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
     }
+
+
   }
 }

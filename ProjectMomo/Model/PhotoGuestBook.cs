@@ -9,36 +9,31 @@ namespace ProjectMomo.Model
 {
   public class PhotoGuestBook : ProjectMomoTab, FetchPictureListener
   {
-    public List<Guest> Guests;
-    private Guest _CurrentGuest;
+    public List<Guest> Guests { get; set; }
+    private Guest _currentGuest;
 
     public PhotoGuestBook()
     {
       Header = "GUESTBOOK";
       Guests = new List<Guest>();
-      _CurrentGuest = null;
+      _currentGuest = null;
     }
 
-    public void loadGuests( List<Guest> guests )
-    {
-      Guests = guests;
-    }
-
-    public void setCurrentGuest( Guest guest )
+    public void SetCurrentGuest( Guest guest )
     {
       //! TODO: throw exception here maybe?
       if (!Guests.Contains(guest))
         return;
 
-      _CurrentGuest = guest;
+      _currentGuest = guest;
     }
   
     public void onFetchPicture(ShowerPicture image)
     {
-      if (null == _CurrentGuest)
+      if (null == _currentGuest)
         return;
 
-      _CurrentGuest.addGuestBookPicture(image);
+      _currentGuest.addGuestBookPicture(image);
     }
   }
 }
