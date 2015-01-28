@@ -22,6 +22,7 @@ namespace ProjectMomo.ViewModel
       set
       {
         _imageFilePath = value;
+        Properties.Settings.Default.FetchImageFilePath = _imageFilePath;
         OnPropertyChanged("ImageFilePath");
       }
     }
@@ -32,6 +33,8 @@ namespace ProjectMomo.ViewModel
     {
       Header = App.Current.FindResource("SettingsHeader").ToString();
       FindImageFilePathButton = new RelayCommand(new Action<object>(GetImageFilePath));
+      ImageFilePath = Properties.Settings.Default.FetchImageFilePath;
+
     }
 
     public event PropertyChangedEventHandler PropertyChanged;
@@ -67,6 +70,10 @@ namespace ProjectMomo.ViewModel
         return;
 
       ImageFilePath = dialog.SelectedPath;
+
+      // Kind of a hacky way to do this but leaving it for now the saving of the applications settings
+      // todo - move this to be in a proper place elsewhere later
+      Properties.Settings.Default.Save();
     }
 
     [NotifyPropertyChangedInvocator]

@@ -17,7 +17,7 @@ namespace ProjectMomo
 
     private void App_OnExit(object sender, ExitEventArgs e)
     {
-      //Properties.Settings.Default.Save();
     }
   }
+
 }
