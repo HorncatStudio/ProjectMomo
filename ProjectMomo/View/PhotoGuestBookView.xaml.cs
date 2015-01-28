@@ -24,7 +24,6 @@ namespace ProjectMomo.View
     public PhotoGuestBookView()
     {
       InitializeComponent();
-      DataContext = new PhotoGuestBookViewModel();
     }
   }
 }

@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="ProjectMomo.View.PhotoGuestBookView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid Background="Blue">
+      <Grid.Resources>
+        <DataTemplate x:Key="DataTemplate11">
+          <Image Source="{Binding items}"/>
+        </DataTemplate>
+      </Grid.Resources>
+      <DataGrid ItemsSource="{Binding items}" AutoGenerateColumns="False">
+        <DataGrid.Columns>
+          <DataGridTemplateColumn CellTemplate="{StaticResource DataTemplate11}"/>
+        </DataGrid.Columns>
+      </DataGrid>
+    </Grid>
+</UserControl>
