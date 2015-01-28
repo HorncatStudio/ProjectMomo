@@ -17,7 +17,9 @@
         <DataTemplate DataType="{x:Type ViewModel:PhotoGuestBookViewModel}">
           <view:PhotoGuestBookView/>
         </DataTemplate>
-
+        <DataTemplate DataType="{x:Type ViewModel:SettingsViewModel}">
+          <view:SettingsView/>
+        </DataTemplate>
         <Style TargetType="TabItem">
           <Setter Property="Template">
             <Setter.Value>

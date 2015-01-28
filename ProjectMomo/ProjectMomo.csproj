@@ -39,6 +39,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -68,18 +70,23 @@
     <Compile Include="Model\PhotoGuestBook.cs" />
     <Compile Include="Model\ProjectMomoTab.cs" />
     <Compile Include="Model\Shower.cs" />
-    <Compile Include="ProjectMomo.cs" />
+    <Compile Include="ProjectMomoApp.cs" />
     <Compile Include="Model\ShowerPicture.cs" />
     <Compile Include="Model\User.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="ViewModel\HomePageViewModel.cs" />
     <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="ViewModel\PhotoGuestBookViewModel.cs" />
+    <Compile Include="ViewModel\SettingsViewModel.cs" />
     <Compile Include="ViewModel\TabViewModel.cs" />
     <Compile Include="View\HomePageView.xaml.cs">
       <DependentUpon>HomePageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\PhotoGuestBookView.xaml.cs">
       <DependentUpon>PhotoGuestBookView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -98,6 +105,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\PhotoGuestBookView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

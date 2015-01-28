@@ -7,12 +7,17 @@ namespace ProjectMomo
   /// </summary>
   public partial class App : Application
   {
-    ProjectMomo _mainApplication;
+    ProjectMomoApp _mainApplication;
 
     private void Application_Startup(object sender, StartupEventArgs e)
     {
-      _mainApplication = new ProjectMomo();
+      _mainApplication = new ProjectMomoApp();
       _mainApplication.Start();
+    }
+
+    private void App_OnExit(object sender, ExitEventArgs e)
+    {
+      //Properties.Settings.Default.Save();
     }
   }
 }

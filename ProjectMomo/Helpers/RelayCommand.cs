@@ -25,9 +25,6 @@ namespace ProjectMomo.Helpers
     /// <param name="parameter"></param>
     public void Execute(object parameter)
     {
-      if (null == parameter)
-        return;
-
       _action(parameter);
     }
 

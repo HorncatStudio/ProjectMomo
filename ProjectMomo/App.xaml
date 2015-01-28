@@ -2,9 +2,13 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
-             Startup="Application_Startup">
+             xmlns:properties="clr-namespace:ProjectMomo.Properties"
+             Startup="Application_Startup"
+             Exit="App_OnExit">
     <Application.Resources>
       <system:String x:Key="HomeHeader">Home</system:String>
       <system:String x:Key="GuestBookHeader">Guest Book</system:String>
+      <system:String x:Key="SettingsHeader">Settings</system:String>
+      <properties:Settings x:Key="Settings"/>
     </Application.Resources>
 </Application>

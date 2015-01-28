@@ -19,7 +19,7 @@ namespace ProjectMomo
   /// 
   /// question - Should all of this be migrated into the App class?
   /// </summary>
-  public class ProjectMomo
+  public class ProjectMomoApp
   {
     // Infrastrucutre
     private IFetchPictureService _FetchPictureService;
@@ -34,12 +34,13 @@ namespace ProjectMomo
     // ViewModels
     private HomePageViewModel _homePageViewModel;
     private PhotoGuestBookViewModel _guestBookViewModel;
-    private MainWindowViewModel _mainWindowViewModel_;
+    private MainWindowViewModel _mainWindowViewModel;
+    private SettingsViewModel _settingsViewModel;
 
     // View
     MainWindow _mainWindow;
 
-    public ProjectMomo()
+    public ProjectMomoApp()
     {
       // Services
       _FetchPictureService = new FakeFetchPictureService();
@@ -55,14 +56,15 @@ namespace ProjectMomo
       // View Models
       _homePageViewModel = new HomePageViewModel();
       _guestBookViewModel = new PhotoGuestBookViewModel(_guestBook);
-      _mainWindowViewModel_ = new MainWindowViewModel(_PictureRouter);
+      _settingsViewModel = new SettingsViewModel();
+      _mainWindowViewModel = new MainWindowViewModel(_PictureRouter);
       
       InitializeTabNavigation();
       InitializeImageRouting();
 
       // Views
       _mainWindow = new MainWindow();
-      _mainWindow.DataContext = _mainWindowViewModel_;
+      _mainWindow.DataContext = _mainWindowViewModel;
     }
 
     private void InitializeImageRouting()
@@ -83,11 +85,12 @@ namespace ProjectMomo
 
     private void InitializeTabNavigation()
     {
-      _mainWindowViewModel_.Tabs.Add(_homePageViewModel);
-      _mainWindowViewModel_.Tabs.Add(_guestBookViewModel);
-      _mainWindowViewModel_.SelectedTab = _homePageViewModel;
+      _mainWindowViewModel.Tabs.Add(_homePageViewModel);
+      _mainWindowViewModel.Tabs.Add(_guestBookViewModel);
+      _mainWindowViewModel.Tabs.Add(_settingsViewModel);
+      _mainWindowViewModel.SelectedTab = _homePageViewModel;
 
-      _homePageViewModel.RegisterNavigation(_mainWindowViewModel_);
+      _homePageViewModel.RegisterNavigation(_mainWindowViewModel);
     }
   }
 }

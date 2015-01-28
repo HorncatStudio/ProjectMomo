@@ -15,7 +15,6 @@ namespace ProjectMomo.ViewModel
     public PhotoGuestBookViewModel()
       : this(null)
     {
-
     }
 
     public PhotoGuestBookViewModel(PhotoGuestBook book)

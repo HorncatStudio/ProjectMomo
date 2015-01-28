@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Navigation;
 using ProjectMomo.Helpers;
 
 namespace ProjectMomo.ViewModel
