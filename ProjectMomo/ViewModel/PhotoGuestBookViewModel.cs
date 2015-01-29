@@ -7,34 +7,10 @@ using ProjectMomo.Model;
 using System.Windows.Data;
 using System.Globalization;
 using System.Windows.Media.Imaging;
+using System.Windows;
 
 namespace ProjectMomo.ViewModel
 {
-  /// <summary>
-  /// Shoving this here for now to get it done
-  /// </summary>
-  public sealed class ImageConverter : IValueConverter
-  {
-    public object Convert(object value, Type targetType,
-                          object parameter, CultureInfo culture)
-    {
-      try
-      {
-        return new BitmapImage(new Uri((string)value));
-      }
-      catch
-      {
-        return new BitmapImage();
-      }
-    }
-
-    public object ConvertBack(object value, Type targetType,
-                              object parameter, CultureInfo culture)
-    {
-      throw new NotImplementedException();
-    }
-  }
-
   public class PhotoGuestBookViewModel : TabViewModel
   {
     private PhotoGuestBook _guestBookModel = null;
@@ -47,19 +23,31 @@ namespace ProjectMomo.ViewModel
       }
     }
 
-    private ObservableCollection<Uri> items;
+    ShowerPicture _SelectedImage;
+    public ShowerPicture SelectedImage
+    {
+      get
+      {
+        return _SelectedImage;
+      }
+      set
+      {
+        if (_SelectedImage != value)
+        {
+          _SelectedImage = value;
+          if (value != null)
+          {
+            var win = new Window(); // This would be your enlarged view control, inherited from Window.
+            win.Show();
+          }
+        }
+      }
+    }
 
     public PhotoGuestBookViewModel(PhotoGuestBook book)
     {
       Header = App.Current.FindResource("GuestBookHeader").ToString();
       _guestBookModel = book;
-      items = new ObservableCollection<Uri>();
-
-      for (int i = 0; i < 4; i++)
-      {
-        var newOne = new Uri("ms-appx:///Angelina&Shinichi_056.jpg");
-        items.Add(newOne);
-      }
     }
   }
 }

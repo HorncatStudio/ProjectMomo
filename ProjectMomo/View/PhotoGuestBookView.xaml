@@ -17,7 +17,7 @@
         </DataTemplate>
       </ListBox.ItemTemplate>
     </ListBox>
-    <ListBox ItemsSource="{Binding ElementName=GuestsListBox, Path=SelectedItem.GuestBookPictures}" Grid.Column="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+    <ListBox ItemsSource="{Binding ElementName=GuestsListBox, Path=SelectedItem.GuestBookPictures}" SelectedItem="{Binding SelectedImage}" Grid.Column="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
       <ListBox.ItemsPanel>
         <ItemsPanelTemplate>
           <WrapPanel IsItemsHost="True"/>
