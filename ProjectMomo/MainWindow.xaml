@@ -6,10 +6,13 @@
     xmlns:ViewModel="clr-namespace:ProjectMomo.ViewModel"
     Title="Project Momo" Height="350" Width="525">
   <Grid>
+    
     <TabControl x:Name="ProjectMomoMainTabs" 
                 ItemsSource="{Binding Tabs}"
                 SelectedItem="{Binding SelectedTab}"
-                HorizontalAlignment="Left" BorderThickness="0" Height="265" VerticalAlignment="Top" Width="507" Grid.ColumnSpan="2">
+                Width="Auto" Height="Auto" 
+             
+                HorizontalAlignment="Left" BorderThickness="0" VerticalAlignment="Top" Grid.ColumnSpan="2">
       <TabControl.Resources>
         <DataTemplate DataType="{x:Type ViewModel:HomePageViewModel}">
           <view:HomePageView/>
