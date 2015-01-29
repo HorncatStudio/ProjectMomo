@@ -12,14 +12,6 @@ namespace ProjectMomo.Model
     private const int InvalidId = -1;
     private int _Id;
     private bool _IsLoaded;
-    private BitmapImage _image;
-    public BitmapImage Image
-    {
-      get
-      {
-        return new BitmapImage(PicturePath);
-      }
-    }
 
     public string AbsolutePath
     {
@@ -40,7 +32,6 @@ namespace ProjectMomo.Model
     {
       _Id = id;
       _IsLoaded = false;
-      _image = new BitmapImage();
     }
 
     public bool isNull()

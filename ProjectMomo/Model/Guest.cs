@@ -12,7 +12,7 @@ namespace ProjectMomo.Model
 
     public string Name { get; set; }
     public string Address { get; set; }
-    public List<ShowerPicture> GuestBookPictures;
+    public List<ShowerPicture> GuestBookPictures { get; set; }
 
     public Guest()
     {

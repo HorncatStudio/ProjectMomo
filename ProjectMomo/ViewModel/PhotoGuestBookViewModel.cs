@@ -10,6 +10,9 @@ using System.Windows.Media.Imaging;
 
 namespace ProjectMomo.ViewModel
 {
+  /// <summary>
+  /// Shoving this here for now to get it done
+  /// </summary>
   public sealed class ImageConverter : IValueConverter
   {
     public object Convert(object value, Type targetType,

@@ -10,14 +10,14 @@
       <ColumnDefinition Width="117*" />
       <ColumnDefinition Width="386*" />
     </Grid.ColumnDefinitions>
-    <ListBox x:Name="lstCategories" ItemsSource="{Binding Guests}">
+    <ListBox x:Name="GuestsListBox" ItemsSource="{Binding Guests}">
       <ListBox.ItemTemplate>
         <DataTemplate>
           <TextBlock Text="{Binding Name}"/>
         </DataTemplate>
       </ListBox.ItemTemplate>
     </ListBox>
-    <ListBox ItemsSource="{Binding ElementName=lstCategories, Path=SelectedItem.GuestBookPictures}" Grid.Column="1" SelectedItem="{Binding SelectedImage}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+    <ListBox ItemsSource="{Binding ElementName=GuestsListBox, Path=SelectedItem.GuestBookPictures}" Grid.Column="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
       <ListBox.ItemsPanel>
         <ItemsPanelTemplate>
           <WrapPanel IsItemsHost="True"/>
@@ -26,13 +26,7 @@
       <ListBox.ItemTemplate>
         <DataTemplate>
           <Border BorderThickness="1" BorderBrush="Black" Background="AliceBlue" Width="100" Height="100">
-            <!--<Image>
-              <Image.Source>
-                <BitmapImage UriSource="{Binding PicturePath}"/>
-              </Image.Source>
-            </Image>-->
             <Image Source="{Binding AbsolutePath}"/>
-            <!--<TextBlock Text="{Binding ImagePath}" TextWrapping="Wrap"/>-->
           </Border>
         </DataTemplate>
       </ListBox.ItemTemplate>

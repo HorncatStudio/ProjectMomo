@@ -17,8 +17,8 @@ namespace ProjectMomoTest
           guestList.Add(guest);
 
           PhotoGuestBook guestBook = new PhotoGuestBook();
-          guestBook.loadGuests( guestList );
-          guestBook.setCurrentGuest( guest );
+          guestBook.Guests = guestList;
+          guestBook.SetCurrentGuest( guest );
 
           FakeFetchPictureService fetchService = new FakeFetchPictureService();
           fetchService.registerListener(guestBook);
