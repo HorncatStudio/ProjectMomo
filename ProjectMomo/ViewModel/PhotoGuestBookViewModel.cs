@@ -4,18 +4,47 @@ using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Controls.Primitives;
 using ProjectMomo.Model;
+using System.Windows.Data;
+using System.Globalization;
+using System.Windows.Media.Imaging;
 
 namespace ProjectMomo.ViewModel
 {
+  public sealed class ImageConverter : IValueConverter
+  {
+    public object Convert(object value, Type targetType,
+                          object parameter, CultureInfo culture)
+    {
+      try
+      {
+        return new BitmapImage(new Uri((string)value));
+      }
+      catch
+      {
+        return new BitmapImage();
+      }
+    }
+
+    public object ConvertBack(object value, Type targetType,
+                              object parameter, CultureInfo culture)
+    {
+      throw new NotImplementedException();
+    }
+  }
+
   public class PhotoGuestBookViewModel : TabViewModel
   {
     private PhotoGuestBook _guestBookModel = null;
-    private ObservableCollection<Uri> items;
 
-    public PhotoGuestBookViewModel()
-      : this(null)
+    public List<Guest> Guests
     {
+      get
+      {
+        return _guestBookModel.Guests;
+      }
     }
+
+    private ObservableCollection<Uri> items;
 
     public PhotoGuestBookViewModel(PhotoGuestBook book)
     {

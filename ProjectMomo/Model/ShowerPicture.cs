@@ -12,9 +12,24 @@ namespace ProjectMomo.Model
     private const int InvalidId = -1;
     private int _Id;
     private bool _IsLoaded;
-    private BitmapImage _Image;
+    private BitmapImage _image;
+    public BitmapImage Image
+    {
+      get
+      {
+        return new BitmapImage(PicturePath);
+      }
+    }
 
-    public string RelativePath { get; set; }
+    public string AbsolutePath
+    {
+      get
+      {
+        return PicturePath.AbsolutePath;
+      }
+    }
+
+    public Uri PicturePath { get; set; }
 
     public ShowerPicture()
       : this(InvalidId)
@@ -25,7 +40,7 @@ namespace ProjectMomo.Model
     {
       _Id = id;
       _IsLoaded = false;
-      _Image = new BitmapImage();
+      _image = new BitmapImage();
     }
 
     public bool isNull()

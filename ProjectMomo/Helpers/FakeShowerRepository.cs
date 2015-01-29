@@ -20,12 +20,38 @@ namespace ProjectMomo.Helpers
       shower.Mama = new User("Angelina", "Uno-Antonison", "ange.unoantonison@gmail.com");
       shower.Parter = new User("Shinichi", "Uno", "uno.shinichi11@gmail.com");
 
-      List<Guest> guestList = new List<Guest>();
-      guestList.Add(new Guest("Anastasia Antonison", "12013 Mount Charron Road NW, Huntsville AL 35806"));
-      guestList.Add(new Guest("Nancy Morris", "227 Ryland Pike, Huntsville AL 35811"));
-      guestList.Add(new Guest("Nancy Perry", "12774 Wall Triana Blvd, Ardmore AL 35739"));
-      guestList.Add(new Guest("Amy Helser", "2702 Bronte Cir., Owens Cross Roads, AL 35763"));
-      guestList.Add(new Guest("Janey Pearson", "1001 Water Hill Road Apartment #3004, Madison AL 35758"));
+      List<Guest> guestList = new List<Guest> {
+        new Guest{ Name="Anastasia Antonison", Address="12013 Mount Charron Road NW, Huntsville AL 35806", GuestBookPictures = new List<ShowerPicture>
+          {
+            new ShowerPicture { PicturePath = new Uri(@"C:\Users\Shinichi\Source\Repos\ProjectMomo\ProjectMomo\bin\Debug\Angelina&Shinichi_056.jpg") },
+            new ShowerPicture { PicturePath = new Uri("ms-appx:///Angelina&Shinichi_056.jpg") }
+          }
+        },
+        new Guest{ Name="Nancy Morris", Address="227 Ryland Pike, Huntsville AL 35811", GuestBookPictures = new List<ShowerPicture>
+          {
+            new ShowerPicture { PicturePath = new Uri("ms-appx:///Angelina&Shinichi_056.jpg") },
+            new ShowerPicture { PicturePath = new Uri("ms-appx:///Angelina&Shinichi_056.jpg") }
+          }
+        },
+        new Guest{ Name="Nancy Perry", Address="12774 Wall Triana Blvd, Ardmore AL 35739", GuestBookPictures = new List<ShowerPicture>
+          {
+            new ShowerPicture { PicturePath = new Uri("ms-appx:///Angelina&Shinichi_056.jpg") },
+            new ShowerPicture { PicturePath = new Uri("ms-appx:///Angelina&Shinichi_056.jpg") }
+          }
+        },
+        new Guest{ Name="Amy Helser", Address="2702 Bronte Cir., Owens Cross Roads, AL 35763", GuestBookPictures = new List<ShowerPicture>
+          {
+            new ShowerPicture { PicturePath = new Uri("ms-appx:///Angelina&Shinichi_056.jpg") }
+          }
+        },
+        new Guest{ Name="Janey Pearson", Address="1001 Water Hill Road Apartment #3004, Madison AL 35758", GuestBookPictures = new List<ShowerPicture>
+          {
+            new ShowerPicture { PicturePath = new Uri("ms-appx:///Angelina&Shinichi_056.jpg") },
+            new ShowerPicture { PicturePath = new Uri("ms-appx:///Angelina&Shinichi_056.jpg") },
+            new ShowerPicture { PicturePath = new Uri("ms-appx:///Angelina&Shinichi_056.jpg") }
+          }
+        }    
+      };
       shower.Guests = guestList;
 
       return shower;
