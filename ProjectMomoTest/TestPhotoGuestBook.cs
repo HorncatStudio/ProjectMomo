@@ -21,12 +21,12 @@ namespace ProjectMomoTest
           guestBook.SetCurrentGuest( guest );
 
           FakeFetchPictureService fetchService = new FakeFetchPictureService();
-          fetchService.registerListener(guestBook);
+          fetchService.RegisterListener(guestBook);
 
           ShowerPicture expectedPicture = new ShowerPicture(1);
-          fetchService.sendPicture(expectedPicture);
+          fetchService.SendPicture(expectedPicture);
 
-          ShowerPicture actualPicture = guest.getLastGuestBookPicture();
+          ShowerPicture actualPicture = guest.GetLastGuestBookPicture();
 
           Assert.AreSame( expectedPicture, actualPicture );
         }
