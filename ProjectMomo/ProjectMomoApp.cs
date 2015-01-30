@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using ProjectMomo.View;
-using ProjectMomo.Helpers;
+﻿using ProjectMomo.Helpers;
 using ProjectMomo.Model;
 using ProjectMomo.ViewModel;
 
@@ -29,7 +22,6 @@ namespace ProjectMomo
     // Models
     private Shower _currentShower;
     private PhotoGuestBook _guestBook;
-    private ProjectMomoTab _homePage;
 
     // ViewModels
     private HomePageViewModel _homePageViewModel;
@@ -47,7 +39,7 @@ namespace ProjectMomo
       _showerRepository = new FakeShowerRepository();
       _pictureRouter = new ShowerImageRouter();
 
-      _fetchPictureService.registerListener(_pictureRouter);
+      _fetchPictureService.RegisterListener(_pictureRouter);
 
       // Models
       _currentShower = new Shower();
@@ -63,26 +55,22 @@ namespace ProjectMomo
       InitializeImageRouting();
 
       // Views
-      _mainWindow = new MainWindow();
-      _mainWindow.DataContext = _mainWindowViewModel;
+      _mainWindow = new MainWindow { DataContext = _mainWindowViewModel };
     }
 
+    /// <summary>
+    /// Initialized all of the routing paths to sections that will do operations when
+    /// an image is fetched.
+    /// </summary>
     private void InitializeImageRouting()
     {
       _pictureRouter.RegisterDefaultRoute(_currentShower);
       _pictureRouter.RegisterRoute(_guestBookViewModel.Header, _guestBook);
     }
 
-    public void Start()
-    {
-      _currentShower = _showerRepository.GetShower();
-      _guestBook.Guests = _currentShower.Guests;
-
-      // todo - make this data bound instead of manually setting it
-      _mainWindow.SetStatusBarText(_currentShower.showerName());
-      _mainWindow.Show();
-    }
-
+    /// <summary>
+    /// Initializes the tab navigation dictated by the view models.
+    /// </summary>
     private void InitializeTabNavigation()
     {
       _mainWindowViewModel.Tabs.Add(_homePageViewModel);
@@ -91,6 +79,20 @@ namespace ProjectMomo
       _mainWindowViewModel.SelectedTab = _homePageViewModel;
 
       _homePageViewModel.RegisterNavigation(_mainWindowViewModel);
+    }
+
+
+    /// <summary>
+    /// Starts the primary application.
+    /// </summary>
+    public void Start()
+    {
+      _currentShower = _showerRepository.GetShower();
+      _guestBook.Guests = _currentShower.Guests;
+
+      // todo - make this data bound instead of manually setting it
+      _mainWindow.SetStatusBarText(_currentShower.ShowerName);
+      _mainWindow.Show();
     }
   }
 }

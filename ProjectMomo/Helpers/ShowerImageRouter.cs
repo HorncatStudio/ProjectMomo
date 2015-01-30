@@ -1,31 +1,27 @@
-﻿using System;
-using System.CodeDom;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Security.Policy;
 
 namespace ProjectMomo.Helpers
 {
   /// <summary>
-  /// A router the sends images to the current listener (model in our case) that is actively being used
+  /// A router the sends images to the current listener (model in our case) that is actively being used.
+  /// 
+  /// If the route does not exist or a current route is not set, an image is sent to the "Default" route.
   /// </summary>
   public class ShowerImageRouter : FetchPictureListener
   {
     private Dictionary<string, FetchPictureListener> _registeredRoutes;
-    public const string DEFAULT_ROUTE_NAME = "DEFAULT";
+    public const string DefaultRouteName = "DEFAULT";
 
     private string _currentState;
     public string CurrentRoute
     {
       private get { return _currentState; }
       set {
-        _currentState = _registeredRoutes.Keys.Contains(value) ? value : DEFAULT_ROUTE_NAME;
+        _currentState = _registeredRoutes.Keys.Contains(value) ? value : DefaultRouteName;
       }
     }
     
-
     public ShowerImageRouter()
     {
       _registeredRoutes = new Dictionary<string, FetchPictureListener>();
@@ -33,10 +29,10 @@ namespace ProjectMomo.Helpers
 
     public void RegisterDefaultRoute(FetchPictureListener listener)
     {
-      if (_registeredRoutes.ContainsKey(DEFAULT_ROUTE_NAME))
-        _registeredRoutes[DEFAULT_ROUTE_NAME] = listener;
+      if (_registeredRoutes.ContainsKey(DefaultRouteName))
+        _registeredRoutes[DefaultRouteName] = listener;
       else
-        _registeredRoutes.Add(DEFAULT_ROUTE_NAME, listener);
+        _registeredRoutes.Add(DefaultRouteName, listener);
     }
 
     public void RegisterRoute(string routeName, FetchPictureListener listener )
@@ -44,9 +40,9 @@ namespace ProjectMomo.Helpers
       _registeredRoutes.Add(routeName, listener);
     }
 
-    public void onFetchPicture(Model.ShowerPicture image)
+    public void OnFetchPicture(Model.ShowerPicture image)
     {
-      _registeredRoutes[CurrentRoute].onFetchPicture(image);
+      _registeredRoutes[CurrentRoute].OnFetchPicture(image);
     }
   }
 }

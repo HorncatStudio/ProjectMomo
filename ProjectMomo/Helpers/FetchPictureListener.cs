@@ -7,8 +7,11 @@ using ProjectMomo.Model;
 
 namespace ProjectMomo.Helpers
 {
+  /// <summary>
+  /// The interface a class must inherit in order to recieved pictures from the fetch picture service.
+  /// </summary>
   public interface FetchPictureListener
   {
-    void onFetchPicture( ShowerPicture image );
+    void OnFetchPicture( ShowerPicture image );
   }
 }

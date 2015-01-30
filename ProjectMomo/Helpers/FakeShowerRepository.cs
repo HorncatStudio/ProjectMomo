@@ -8,12 +8,11 @@ using ProjectMomo.Model;
 
 namespace ProjectMomo.Helpers
 {
+  /// <summary>
+  /// A faked repository in order to develop application without the neccesity of a real implemntation at this time.
+  /// </summary>
   public class FakeShowerRepository : IShowerRepository
   {
-    public FakeShowerRepository()
-    {
-    }
-
     public Shower GetShower()
     {
       Shower shower = new Shower();
@@ -61,11 +60,6 @@ namespace ProjectMomo.Helpers
       shower.Guests = guestList;
 
       return shower;
-    }
-
-    public void clear()
-    {
-
     }
   }
 }

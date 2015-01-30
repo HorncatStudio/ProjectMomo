@@ -6,7 +6,7 @@ using ProjectMomo.ViewModel;
 
 namespace ProjectMomo
 {
-  public class MainWindowViewModel : SectionNavigation, INotifyPropertyChanged
+  public class MainWindowViewModel : ISectionNavigation, INotifyPropertyChanged
   {
     public ObservableCollection<TabViewModel> Tabs { get; set; }
     private ShowerImageRouter _imageRouter = null;

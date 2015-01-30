@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace ProjectMomo.Helpers
 {
+  /// <summary>
+  /// Fetching images service interface that needs to be implemented in order to support images to be fetched.
+  /// </summary>
   public interface IFetchPictureService
   {
-    void registerListener(FetchPictureListener listener);
-    void unregisterListener(FetchPictureListener listener);
+    void RegisterListener(FetchPictureListener listener);
+    void UnregisterListener(FetchPictureListener listener);
   }
 }

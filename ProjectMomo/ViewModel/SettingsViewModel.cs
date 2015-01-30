@@ -1,20 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
 using ProjectMomo.Annotations;
 using ProjectMomo.Helpers;
-using ProjectMomo.Model;
 
 namespace ProjectMomo.ViewModel
 {
+  /// <summary>
+  /// Section that displays user settings for the application.
+  /// </summary>
   class SettingsViewModel : TabViewModel, INotifyPropertyChanged
   {
+    /// <summary>
+    /// The file path where the fetched pictuers are gathered. </summary>
     private string _imageFilePath;
     public string ImageFilePath
     {
@@ -27,6 +27,9 @@ namespace ProjectMomo.ViewModel
       }
     }
 
+    /// <summary>
+    /// Commands the retrieval of getting the file path for image fetching.
+    /// </summary>
     public ICommand FindImageFilePathButton { get; set; }
 
     public SettingsViewModel()
@@ -40,8 +43,7 @@ namespace ProjectMomo.ViewModel
     public event PropertyChangedEventHandler PropertyChanged;
 
     /// <summary>
-    /// Updates the ImageFilePath property of the view model which 
-    /// is used for searching where images are stored.
+    /// Updates the ImageFilePath property of the view model which  is used for searching where images are stored.
     /// </summary>
     /// <param name="obj"></param>
     private void GetImageFilePath(object obj)

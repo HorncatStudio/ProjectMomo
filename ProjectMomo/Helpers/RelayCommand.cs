@@ -5,6 +5,11 @@ namespace ProjectMomo.Helpers
 {
   /// <summary>
   /// Sample RelayCommand to forward commands in the application.
+  /// 
+  /// Borrowed this implementation from the internets somewhere.  So commonly referenced, it is difficult
+  /// to find a source for it.
+  /// 
+  /// Would be replaced if using a MVVM framework in the future.
   /// </summary>
   public class RelayCommand : ICommand
   {

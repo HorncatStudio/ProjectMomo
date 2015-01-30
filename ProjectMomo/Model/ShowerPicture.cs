@@ -7,20 +7,25 @@ using System.Windows.Media.Imaging;
 
 namespace ProjectMomo.Model
 {
+  /// <summary>
+  /// A picture model that holds all information unique to a picture in the application.
+  /// </summary>
   public class ShowerPicture
   {
     private const int InvalidId = -1;
-    private int _Id;
-    private bool _IsLoaded;
-
+    /// <summary>
+    /// A unique identifier that shall be used when an image is read and saved into the repository.  </summary>
+    private int _id;
+    
+    /// <summary>
+    /// Returns the absolute file path of the URI provided. </summary>
     public string AbsolutePath
     {
-      get
-      {
-        return PicturePath.AbsolutePath;
-      }
+      get { return PicturePath.AbsolutePath; }
     }
 
+    /// <summary>
+    /// The path of the image.  </summary>
     public Uri PicturePath { get; set; }
 
     public ShowerPicture()
@@ -30,18 +35,12 @@ namespace ProjectMomo.Model
 
     public ShowerPicture( int id )
     {
-      _Id = id;
-      _IsLoaded = false;
+      _id = id;
     }
 
-    public bool isNull()
+    public bool IsNull()
     {
-      return (InvalidId == _Id);
-    }
-
-    public bool isLoaded()
-    {
-      return _IsLoaded;
+      return (InvalidId == _id);
     }
   }
 }

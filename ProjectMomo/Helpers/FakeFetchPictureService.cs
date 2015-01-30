@@ -7,30 +7,39 @@ using ProjectMomo.Model;
 
 namespace ProjectMomo.Helpers
 {
+  /// <summary>
+  /// Faked picture retrival service used for unit testing.
+  /// 
+  /// Use the SendPicture() method in order to force an image to be send to all of the registered listeners.
+  /// </summary>
   public class FakeFetchPictureService : IFetchPictureService
   {
-    private List<FetchPictureListener> _Listeners;
+    private List<FetchPictureListener> _listeners;
 
     public FakeFetchPictureService()
     {
-      _Listeners = new List<FetchPictureListener>();
+      _listeners = new List<FetchPictureListener>();
     }
 
-    public void registerListener(FetchPictureListener listener)
+    public void RegisterListener(FetchPictureListener listener)
     {
-      _Listeners.Add(listener);
+      _listeners.Add(listener);
     }
 
-    public void unregisterListener(FetchPictureListener listener)
+    public void UnregisterListener(FetchPictureListener listener)
     {
-      _Listeners.Remove(listener);
+      _listeners.Remove(listener);
     }
 
-    public void sendPicture( ShowerPicture picture )
+    /// <summary>
+    /// A faked method in order to force an image to be "fetched" for testing purposes.
+    /// </summary>
+    /// <param name="picture"></param>
+    public void SendPicture( ShowerPicture picture )
     {
-      foreach( FetchPictureListener listener in _Listeners )
+      foreach( FetchPictureListener listener in _listeners )
       {
-        listener.onFetchPicture(picture);
+        listener.OnFetchPicture(picture);
       }
     }
   }

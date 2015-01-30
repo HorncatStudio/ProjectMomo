@@ -6,12 +6,21 @@ using System.Threading.Tasks;
 
 namespace ProjectMomo.Model
 {
+  /// <summary>
+  /// Guest model for all unique guest information
+  /// </summary>
   public class Guest
   {
-    private int _Id;
+    /// <summary>
+    /// Unique identifier that shal be used for retrieving and storing information
+    /// related to a guest in the repository. </summary>
+    private int _id;
 
     public string Name { get; set; }
     public string Address { get; set; }
+
+    /// <summary>
+    /// Container of guest book images that are associated with the guest. </summary>
     public List<ShowerPicture> GuestBookPictures { get; set; }
 
     public Guest()
@@ -19,20 +28,12 @@ namespace ProjectMomo.Model
       GuestBookPictures = new List<ShowerPicture>();
     }
 
-    public Guest( string name, string address )
-    {
-      Name = name;
-      Address = address;
-      GuestBookPictures = new List<ShowerPicture>();
-    }
-
-
-    public void addGuestBookPicture( ShowerPicture picture )
+    public void AddGuestBookPicture( ShowerPicture picture )
     {
       GuestBookPictures.Add(picture);
     }
 
-    public ShowerPicture getLastGuestBookPicture()
+    public ShowerPicture GetLastGuestBookPicture()
     {
       //! TODO: Another place for exception probably
       if (!GuestBookPictures.Any())
