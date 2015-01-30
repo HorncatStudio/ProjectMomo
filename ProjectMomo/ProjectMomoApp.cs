@@ -22,9 +22,9 @@ namespace ProjectMomo
   public class ProjectMomoApp
   {
     // Infrastrucutre
-    private IFetchPictureService _FetchPictureService;
-    private IShowerRepository _ShowerRepository;
-    private ShowerImageRouter _PictureRouter;
+    private IFetchPictureService _fetchPictureService;
+    private IShowerRepository _showerRepository;
+    private ShowerImageRouter _pictureRouter;
 
     // Models
     private Shower _currentShower;
@@ -43,11 +43,11 @@ namespace ProjectMomo
     public ProjectMomoApp()
     {
       // Services
-      _FetchPictureService = new FakeFetchPictureService();
-      _ShowerRepository = new FakeShowerRepository();
-      _PictureRouter = new ShowerImageRouter();
+      _fetchPictureService = new FakeFetchPictureService();
+      _showerRepository = new FakeShowerRepository();
+      _pictureRouter = new ShowerImageRouter();
 
-      _FetchPictureService.registerListener(_PictureRouter);
+      _fetchPictureService.registerListener(_pictureRouter);
 
       // Models
       _currentShower = new Shower();
@@ -57,7 +57,7 @@ namespace ProjectMomo
       _homePageViewModel = new HomePageViewModel();
       _guestBookViewModel = new PhotoGuestBookViewModel(_guestBook);
       _settingsViewModel = new SettingsViewModel();
-      _mainWindowViewModel = new MainWindowViewModel(_PictureRouter);
+      _mainWindowViewModel = new MainWindowViewModel(_pictureRouter);
       
       InitializeTabNavigation();
       InitializeImageRouting();
@@ -69,13 +69,13 @@ namespace ProjectMomo
 
     private void InitializeImageRouting()
     {
-      _PictureRouter.RegisterDefaultRoute(_currentShower);
-      _PictureRouter.RegisterRoute(_guestBookViewModel.Header, _guestBook);
+      _pictureRouter.RegisterDefaultRoute(_currentShower);
+      _pictureRouter.RegisterRoute(_guestBookViewModel.Header, _guestBook);
     }
 
     public void Start()
     {
-      _currentShower = _ShowerRepository.GetShower();
+      _currentShower = _showerRepository.GetShower();
       _guestBook.Guests = _currentShower.Guests;
 
       // todo - make this data bound instead of manually setting it
