@@ -31,6 +31,10 @@ namespace ProjectMomo.Helpers
       _listeners.Remove(listener);
     }
 
+    public void UpdateDirectoryToWatch(string directory)
+    {
+    }
+
     public void Start()
     {
     }

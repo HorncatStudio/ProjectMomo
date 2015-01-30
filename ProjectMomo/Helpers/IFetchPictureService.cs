@@ -14,6 +14,8 @@ namespace ProjectMomo.Helpers
     void RegisterListener(FetchPictureListener listener);
     void UnregisterListener(FetchPictureListener listener);
 
+    void UpdateDirectoryToWatch(string directory);
+
     void Start();
     void Stop();
   }

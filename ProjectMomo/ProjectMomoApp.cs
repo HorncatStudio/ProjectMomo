@@ -48,7 +48,7 @@ namespace ProjectMomo
       // View Models
       _homePageViewModel = new HomePageViewModel();
       _guestBookViewModel = new PhotoGuestBookViewModel(_guestBook);
-      _settingsViewModel = new SettingsViewModel();
+      _settingsViewModel = new SettingsViewModel(_fetchPictureService);
       _mainWindowViewModel = new MainWindowViewModel(_pictureRouter);
       
       InitializeTabNavigation();
@@ -95,6 +95,11 @@ namespace ProjectMomo
       _mainWindow.Show();
 
       _fetchPictureService.Start();
+    }
+
+    public void Stop()
+    {
+      _fetchPictureService.Stop();
     }
   }
 }

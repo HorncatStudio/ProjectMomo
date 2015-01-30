@@ -17,6 +17,7 @@ namespace ProjectMomo
 
     private void App_OnExit(object sender, ExitEventArgs e)
     {
+      _mainApplication.Stop();
     }
   }
 

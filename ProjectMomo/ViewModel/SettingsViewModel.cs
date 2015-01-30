@@ -14,6 +14,11 @@ namespace ProjectMomo.ViewModel
   class SettingsViewModel : TabViewModel, INotifyPropertyChanged
   {
     /// <summary>
+    /// Service that fetches images.
+    /// </summary>
+    private IFetchPictureService _fetchPictureService;
+
+    /// <summary>
     /// The file path where the fetched pictuers are gathered. </summary>
     private string _imageFilePath;
     public string ImageFilePath
@@ -23,6 +28,7 @@ namespace ProjectMomo.ViewModel
       {
         _imageFilePath = value;
         Properties.Settings.Default.FetchImageFilePath = _imageFilePath;
+        _fetchPictureService.UpdateDirectoryToWatch(_imageFilePath);
         OnPropertyChanged("ImageFilePath");
       }
     }
@@ -32,8 +38,10 @@ namespace ProjectMomo.ViewModel
     /// </summary>
     public ICommand FindImageFilePathButton { get; set; }
 
-    public SettingsViewModel()
+    public SettingsViewModel( IFetchPictureService fetchService )
     {
+      _fetchPictureService = fetchService;
+
       Header = App.Current.FindResource("SettingsHeader").ToString();
       FindImageFilePathButton = new RelayCommand(new Action<object>(GetImageFilePath));
       ImageFilePath = Properties.Settings.Default.FetchImageFilePath;
