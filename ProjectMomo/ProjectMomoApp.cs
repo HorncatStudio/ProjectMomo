@@ -35,7 +35,7 @@ namespace ProjectMomo
     public ProjectMomoApp()
     {
       // Services
-      _fetchPictureService = new FakeFetchPictureService();
+      _fetchPictureService = new FetchPictureService();
       _showerRepository = new FakeShowerRepository();
       _pictureRouter = new ShowerImageRouter();
 
@@ -93,6 +93,8 @@ namespace ProjectMomo
       // todo - make this data bound instead of manually setting it
       _mainWindow.SetStatusBarText(_currentShower.ShowerName);
       _mainWindow.Show();
+
+      _fetchPictureService.Start();
     }
   }
 }

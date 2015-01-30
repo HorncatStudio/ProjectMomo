@@ -13,5 +13,8 @@ namespace ProjectMomo.Helpers
   {
     void RegisterListener(FetchPictureListener listener);
     void UnregisterListener(FetchPictureListener listener);
+
+    void Start();
+    void Stop();
   }
 }

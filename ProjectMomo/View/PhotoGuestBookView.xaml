@@ -11,6 +11,7 @@
       <ColumnDefinition Width="386*" />
     </Grid.ColumnDefinitions>
     <ListBox x:Name="GuestsListBox" ItemsSource="{Binding Guests}"
+                                    SelectedItem="{Binding SelectedGuest}"
              BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
              HorizontalAlignment="Stretch">
       <ListBox.ItemTemplate>

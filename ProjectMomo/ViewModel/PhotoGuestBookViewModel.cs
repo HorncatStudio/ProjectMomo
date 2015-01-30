@@ -1,14 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using ProjectMomo.Model;
 using System.Windows;
+using ProjectMomo.Annotations;
 
-namespace ProjectMomo.ViewModel
+namespace ProjectMomo.ViewModel 
 {
 
   /// <summary>
   /// View model for the tab that displays the photo guest book for the event.
   /// </summary>
-  public class PhotoGuestBookViewModel : TabViewModel
+  public class PhotoGuestBookViewModel : TabViewModel, INotifyPropertyChanged
   {
     /// <summary>
     /// Model associated with this view model.  </summary>
@@ -41,6 +45,20 @@ namespace ProjectMomo.ViewModel
       }
     }
 
+    private Guest _selectedGuest;
+    public Guest SelectedGuest
+    {
+      get { return _selectedGuest; }
+      set
+      {
+        _selectedGuest = value;
+        if (null != value)
+        {
+          _guestBookModel.SetCurrentGuest(value);
+        }
+      }
+    }
+
     /// <summary>
     /// Must inject the guest book model into the view model to display information in the view.
     /// </summary>
@@ -49,6 +67,21 @@ namespace ProjectMomo.ViewModel
     {
       Header = App.Current.FindResource("GuestBookHeader").ToString();
       _guestBookModel = book;
+      _guestBookModel.PropertyChanged += ModelChanged;
+    }
+
+    private void ModelChanged(object sender, PropertyChangedEventArgs e)
+    {
+      OnPropertyChanged(String.Empty);
+    }
+
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    [NotifyPropertyChangedInvocator]
+    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    {
+      var handler = PropertyChanged;
+      if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
     }
   }
 }

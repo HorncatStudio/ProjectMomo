@@ -31,6 +31,14 @@ namespace ProjectMomo.Helpers
       _listeners.Remove(listener);
     }
 
+    public void Start()
+    {
+    }
+
+    public void Stop()
+    {
+    }
+
     /// <summary>
     /// A faked method in order to force an image to be "fetched" for testing purposes.
     /// </summary>

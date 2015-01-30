@@ -61,6 +61,7 @@
     <Compile Include="Helpers\FakeShowerRepository.cs" />
     <Compile Include="Helpers\FetchPictureListener.cs" />
     <Compile Include="Helpers\FakeFetchPictureService.cs" />
+    <Compile Include="Helpers\FetchPictureService.cs" />
     <Compile Include="Helpers\IFetchPictureService.cs" />
     <Compile Include="Helpers\IShowerRepository.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />

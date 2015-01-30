@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using ProjectMomo.Annotations;
 using ProjectMomo.Helpers;
 
 namespace ProjectMomo.Model
@@ -17,7 +20,7 @@ namespace ProjectMomo.Model
   /// question - is this class even neccesary, may be able to just pass around the
   ///            shower object instead which contains the guests.
   /// </summary>
-  public class PhotoGuestBook : FetchPictureListener
+  public class PhotoGuestBook : FetchPictureListener, INotifyPropertyChanged
   {
     public List<Guest> Guests { get; set; }
 
@@ -62,6 +65,16 @@ namespace ProjectMomo.Model
         return;
 
       _currentGuest.AddGuestBookPicture(image);
+      OnPropertyChanged("Guests");
+    }
+
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    [NotifyPropertyChangedInvocator]
+    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    {
+      var handler = PropertyChanged;
+      if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
     }
   }
 }
