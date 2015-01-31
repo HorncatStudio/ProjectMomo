@@ -6,13 +6,16 @@
     xmlns:ViewModel="clr-namespace:ProjectMomo.ViewModel"
     Title="Project Momo" Height="350" Width="525">
   <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
     
     <TabControl x:Name="ProjectMomoMainTabs" 
                 ItemsSource="{Binding Tabs}"
                 SelectedItem="{Binding SelectedTab}"
-                Width="Auto" Height="Auto" 
-             
-                HorizontalAlignment="Left" BorderThickness="0" VerticalAlignment="Top" Grid.ColumnSpan="2">
+                Grid.Row="0"
+                BorderThickness="0">
       <TabControl.Resources>
         <DataTemplate DataType="{x:Type ViewModel:HomePageViewModel}">
           <view:HomePageView/>
@@ -29,10 +32,8 @@
               <ControlTemplate TargetType="TabItem">
                 <Grid Name="Panel">
                   <ContentPresenter x:Name="ContentSite"
-                                                  VerticalAlignment="Center"
-                                                  HorizontalAlignment="Center"
-                                                  ContentSource="Header"
-                                                  Margin="10,2" />
+                      VerticalAlignment="Center" HorizontalAlignment="Center"
+                      ContentSource="Header" Margin="10,2" />
                 </Grid>
                 <ControlTemplate.Triggers>
                   <Trigger Property="IsSelected" Value="True">
@@ -60,7 +61,7 @@
       </TabControl.ItemTemplate>
 
     </TabControl>
-    <StatusBar Margin="0,293,0,0" Grid.ColumnSpan="2">
+    <StatusBar Grid.Row="1">
       <TextBlock TextWrapping="Wrap" Name="labelActiveShower" Text="TextBlock"/>
     </StatusBar>
   </Grid>

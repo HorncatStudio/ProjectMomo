@@ -1,30 +1,26 @@
-﻿<UserControl x:Class="ProjectMomo.View.PhotoGuestBookView"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="ProjectMomo.View.PhotoGuestBookView" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid Width="Auto" Height="Auto">
+  <Grid>
     <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="117*"/>
-      <ColumnDefinition Width="386*" />
+      <ColumnDefinition Width="Auto"/>
+      <ColumnDefinition Width="*" />
     </Grid.ColumnDefinitions>
-    <ListBox x:Name="GuestsListBox" ItemsSource="{Binding Guests}"
-                                    SelectedItem="{Binding SelectedGuest}"
-             BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-             HorizontalAlignment="Stretch">
+    <ListBox x:Name="GuestsListBox" ItemsSource="{Binding Guests}" SelectedItem="{Binding SelectedGuest}"
+			BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
       <ListBox.ItemTemplate>
         <DataTemplate>
-          <!--<UniformGrid Rows="1">-->
-            <TextBlock Text="{Binding Name}" FontSize="16"/>
-          <!--</UniformGrid>-->
+          <TextBlock Text="{Binding Name}" FontSize="16"/>
         </DataTemplate>
       </ListBox.ItemTemplate>
     </ListBox>
-    <ListBox ItemsSource="{Binding ElementName=GuestsListBox, Path=SelectedItem.GuestBookPictures}" 
-             Grid.Column="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-             BorderThickness="0">
+    <ListBox ItemsSource="{Binding SelectedItem.GuestBookPictures, ElementName=GuestsListBox}" 
+			Grid.Column="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0">
       <ListBox.ItemsPanel>
         <ItemsPanelTemplate>
           <WrapPanel IsItemsHost="True"/>
@@ -32,9 +28,16 @@
       </ListBox.ItemsPanel>
       <ListBox.ItemTemplate>
         <DataTemplate>
-          <Border BorderThickness="0"  Width="120" Height="120">
-            <Image Source="{Binding AbsolutePath}"/>
-          </Border>
+          <Image Source="{Binding AbsolutePath}"  Margin="5" Width="120" Height="120">
+            <Image.Resources>
+              <System:Double x:Key="DSBlueRadius">7</System:Double>
+              <System:Double x:Key="OpacityDropShadow">.5</System:Double>
+              <System:Double x:Key="DSShadowDepth">2</System:Double>
+            </Image.Resources>
+            <Image.Effect>
+              <DropShadowEffect BlurRadius="{DynamicResource DSBlueRadius}" Opacity="{DynamicResource OpacityDropShadow}" ShadowDepth="{DynamicResource DSShadowDepth}"/>
+            </Image.Effect>
+          </Image>
         </DataTemplate>
       </ListBox.ItemTemplate>
     </ListBox>
