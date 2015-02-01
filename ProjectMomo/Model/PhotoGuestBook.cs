@@ -26,26 +26,24 @@ namespace ProjectMomo.Model
 
     //! Should maybe be moved to the view model? 
     private Guest _currentGuest;
+    public Guest CurrentGuest
+    {
+      get { return _currentGuest; }
+      set
+      {
+        if (!Guests.Contains(value))
+          return;
+        _currentGuest = value;
+        OnPropertyChanged();
+      }
+    }
 
     public PhotoGuestBook()
     {
       Guests = new List<Guest>();
-      _currentGuest = null;
+      CurrentGuest = null;
     }
-
-    /// <summary>
-    ///  Sets the current guest to be the one the new pictures get added to.
-    /// </summary>
-    /// <param name="guest"></param>
-    public void SetCurrentGuest( Guest guest )
-    {
-      //! TODO: throw exception here maybe?
-      if (!Guests.Contains(guest))
-        return;
-
-      _currentGuest = guest;
-    }
-
+    
     /// <summary>
     /// Sample Empty method that could be used for checking in guests at a later time.
     /// </summary>
@@ -61,11 +59,11 @@ namespace ProjectMomo.Model
     /// <param name="image"></param>
     public void OnFetchPicture(ShowerPicture image)
     {
-      if (null == _currentGuest)
+      if (null == CurrentGuest)
         return;
 
-      _currentGuest.AddGuestBookPicture(image);
-      OnPropertyChanged("Guests");
+      CurrentGuest.AddGuestBookPicture(image);
+      OnPropertyChanged("GuestBookPictures");
     }
 
     public event PropertyChangedEventHandler PropertyChanged;

@@ -45,17 +45,13 @@ namespace ProjectMomo.ViewModel
       }
     }
 
-    private Guest _selectedGuest;
     public Guest SelectedGuest
     {
-      get { return _selectedGuest; }
+      get { return _guestBookModel.CurrentGuest; }
       set
       {
-        _selectedGuest = value;
-        if (null != value)
-        {
-          _guestBookModel.SetCurrentGuest(value);
-        }
+        _guestBookModel.CurrentGuest = value; 
+        OnPropertyChanged();
       }
     }
 

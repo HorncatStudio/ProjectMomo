@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using ProjectMomo.Annotations;
 
 namespace ProjectMomo.Model
 {
   /// <summary>
   /// Guest model for all unique guest information
   /// </summary>
-  public class Guest
+  public class Guest : INotifyPropertyChanged
   {
     /// <summary>
     /// Unique identifier that shal be used for retrieving and storing information
@@ -21,7 +24,16 @@ namespace ProjectMomo.Model
 
     /// <summary>
     /// Container of guest book images that are associated with the guest. </summary>
-    public List<ShowerPicture> GuestBookPictures { get; set; }
+    private List<ShowerPicture> _guestBookPictures; 
+    public List<ShowerPicture> GuestBookPictures
+    {
+      get { return _guestBookPictures; }
+      set
+      {
+        _guestBookPictures = value;
+        OnPropertyChanged();
+      }
+    }
 
     public Guest()
     {
@@ -39,7 +51,15 @@ namespace ProjectMomo.Model
       if (!GuestBookPictures.Any())
         return new ShowerPicture();
 
-      return GuestBookPictures.ElementAt(GuestBookPictures.Count - 1);
+      return GuestBookPictures.Last();
+    }
+
+    public event PropertyChangedEventHandler PropertyChanged;
+    [NotifyPropertyChangedInvocator]
+    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    {
+      var handler = PropertyChanged;
+      if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
     }
   }
 }
