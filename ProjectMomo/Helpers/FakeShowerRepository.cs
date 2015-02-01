@@ -19,8 +19,14 @@ namespace ProjectMomo.Helpers
       shower.Host = new User("Ashley", "Grenon", "ashley.grenon@gmail.com");
       shower.Mama = new User("Angelina", "Uno-Antonison", "ange.unoantonison@gmail.com");
       shower.Parter = new User("Shinichi", "Uno", "uno.shinichi11@gmail.com");
-
+      
       string fullPicturePath = Path.GetFullPath("Angelina&Shinichi_056.jpg");
+
+      shower.MiscPictures = new List<ShowerPicture> {
+        new ShowerPicture { PicturePath = new Uri(fullPicturePath) },
+        new ShowerPicture { PicturePath = new Uri(fullPicturePath) },
+        new ShowerPicture { PicturePath = new Uri(fullPicturePath) }
+      };
 
       List<Guest> guestList = new List<Guest> {
         new Guest{ Name="Anastasia Antonison", Address="12013 Mount Charron Road NW, Huntsville AL 35806", GuestBookPictures = new List<ShowerPicture>

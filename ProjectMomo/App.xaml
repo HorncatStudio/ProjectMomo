@@ -9,6 +9,9 @@
       <system:String x:Key="HomeHeader">Home</system:String>
       <system:String x:Key="GuestBookHeader">Guest Book</system:String>
       <system:String x:Key="SettingsHeader">Settings</system:String>
+      <system:String x:Key="ShowerHeader">Shower</system:String>
+      <ImageBrush ImageSource="/ProjectMomo;component/Resources/ProjectMomoGraphicWithoutBorder.png" 
+                  x:Key="BackgroundImage" Opacity="0.10" Stretch="None"/>
       <properties:Settings x:Key="Settings"/>
     </Application.Resources>
 </Application>

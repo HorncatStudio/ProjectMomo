@@ -24,10 +24,10 @@ namespace ProjectMomo
     private PhotoGuestBook _guestBook;
 
     // ViewModels
-    private HomePageViewModel _homePageViewModel;
     private PhotoGuestBookViewModel _guestBookViewModel;
     private MainWindowViewModel _mainWindowViewModel;
     private SettingsViewModel _settingsViewModel;
+    private ShowerViewModel _showerViewModel;
 
     // View
     MainWindow _mainWindow;
@@ -43,10 +43,12 @@ namespace ProjectMomo
 
       // Models
       _currentShower = new Shower();
+      _currentShower = _showerRepository.GetShower();
+
       _guestBook = new PhotoGuestBook();
 
       // View Models
-      _homePageViewModel = new HomePageViewModel();
+      _showerViewModel = new ShowerViewModel(_currentShower);
       _guestBookViewModel = new PhotoGuestBookViewModel(_guestBook);
       _settingsViewModel = new SettingsViewModel(_fetchPictureService);
       _mainWindowViewModel = new MainWindowViewModel(_pictureRouter);
@@ -73,12 +75,10 @@ namespace ProjectMomo
     /// </summary>
     private void InitializeTabNavigation()
     {
-      _mainWindowViewModel.Tabs.Add(_homePageViewModel);
+      _mainWindowViewModel.Tabs.Add(_showerViewModel);
       _mainWindowViewModel.Tabs.Add(_guestBookViewModel);
       _mainWindowViewModel.Tabs.Add(_settingsViewModel);
-      _mainWindowViewModel.SelectedTab = _homePageViewModel;
-
-      _homePageViewModel.RegisterNavigation(_mainWindowViewModel);
+      _mainWindowViewModel.SelectedTab = _showerViewModel;
     }
 
 
@@ -87,11 +87,10 @@ namespace ProjectMomo
     /// </summary>
     public void Start()
     {
-      _currentShower = _showerRepository.GetShower();
       _guestBook.Guests = _currentShower.Guests;
 
       // todo - make this data bound instead of manually setting it
-      _mainWindow.SetStatusBarText(_currentShower.ShowerName);
+      _mainWindow.SetShowerName(_currentShower.ShowerName);
       _mainWindow.Show();
 
       _fetchPictureService.Start();

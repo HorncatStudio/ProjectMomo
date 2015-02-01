@@ -30,13 +30,18 @@ namespace ProjectMomo.Helpers
 
     public void UpdateDirectoryToWatch(string directory)
     {
+      if (String.IsNullOrEmpty(directory))
+          return;
+
       _directoryWatcher.Path = directory;
+      _directoryWatcher.EnableRaisingEvents = true;
     }
 
     [PermissionSet(SecurityAction.Demand, Name="FullTrust")]
     public void Start()
     {
-      _directoryWatcher.EnableRaisingEvents = true;
+      if( !String.IsNullOrEmpty(_directoryWatcher.Path) )
+        _directoryWatcher.EnableRaisingEvents = true;
 
       CreateTempDirectory();
     }

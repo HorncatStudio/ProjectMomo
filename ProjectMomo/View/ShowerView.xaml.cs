@@ -12,25 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ProjectMomo.ViewModel;
 
-namespace ProjectMomo
+namespace ProjectMomo.View
 {
   /// <summary>
-  /// Interaction logic for MainWindow.xaml
+  /// Interaction logic for ShowerView.xaml
   /// </summary>
-  public partial class MainWindow : Window
-  {   
-
-    public MainWindow()
+  public partial class ShowerView : UserControl
+  {
+    public ShowerView()
     {
       InitializeComponent();
-    }
-
-    public void SetShowerName( string text )
-    {
-      labelActiveShower.Text = text;
-      //labelTitleShowerName.Content = text;
     }
   }
 }

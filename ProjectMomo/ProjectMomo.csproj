@@ -78,6 +78,7 @@
     <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="ViewModel\PhotoGuestBookViewModel.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />
+    <Compile Include="ViewModel\ShowerViewModel.cs" />
     <Compile Include="ViewModel\TabViewModel.cs" />
     <Compile Include="View\HomePageView.xaml.cs">
       <DependentUpon>HomePageView.xaml</DependentUpon>
@@ -87,6 +88,9 @@
     </Compile>
     <Compile Include="View\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ShowerView.xaml.cs">
+      <DependentUpon>ShowerView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -109,6 +113,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\SettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ShowerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -140,7 +148,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\ProjectMomoGraphicWithoutBorder.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

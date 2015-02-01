@@ -6,7 +6,7 @@ using ProjectMomo.ViewModel;
 
 namespace ProjectMomo
 {
-  public class MainWindowViewModel : ISectionNavigation, INotifyPropertyChanged
+  public class MainWindowViewModel : INotifyPropertyChanged
   {
     public ObservableCollection<TabViewModel> Tabs { get; set; }
     private ShowerImageRouter _imageRouter = null;
@@ -40,26 +40,11 @@ namespace ProjectMomo
         _imageRouter.CurrentRoute = imageRoute;
     }
 
-    public void DisplaySection(string sectionHeader)
-    {
-      foreach (var tab in Tabs)
-      {
-        if (sectionHeader == tab.Header)
-        {
-          SelectedTab = tab;
-          return;
-        }
-      }
-    }
-
     public event PropertyChangedEventHandler PropertyChanged;
-
     protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
       var handler = PropertyChanged;
       if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
     }
-
-
   }
 }
