@@ -11,7 +11,7 @@
       <ColumnDefinition Width="Auto"/>
       <ColumnDefinition Width="*" />
     </Grid.ColumnDefinitions>
-    <ListBox x:Name="GuestsListBox" ItemsSource="{Binding Guests}" SelectedItem="{Binding SelectedGuest}"
+    <ListBox x:Name="GuestsListBox" ItemsSource="{Binding Guests}" SelectedItem="{Binding CurrentGuest}"
 			BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
       <ListBox.ItemTemplate>
         <DataTemplate>
@@ -29,13 +29,8 @@
       <ListBox.ItemTemplate>
         <DataTemplate>
           <Image Source="{Binding AbsolutePath}"  Margin="5" Width="120" Height="120">
-            <Image.Resources>
-              <System:Double x:Key="DSBlueRadius">7</System:Double>
-              <System:Double x:Key="OpacityDropShadow">.5</System:Double>
-              <System:Double x:Key="DSShadowDepth">2</System:Double>
-            </Image.Resources>
             <Image.Effect>
-              <DropShadowEffect BlurRadius="{DynamicResource DSBlueRadius}" Opacity="{DynamicResource OpacityDropShadow}" ShadowDepth="{DynamicResource DSShadowDepth}"/>
+              <DropShadowEffect Opacity=".5" ShadowDepth="2" BlurRadius="7"/>
             </Image.Effect>
           </Image>
         </DataTemplate>

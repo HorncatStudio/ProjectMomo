@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using ProjectMomo.Annotations;
 
 namespace ProjectMomo.Model
@@ -21,6 +18,7 @@ namespace ProjectMomo.Model
 
     public string Name { get; set; }
     public string Address { get; set; }
+    public bool IsCheckedIn { get; set; }
 
     /// <summary>
     /// Container of guest book images that are associated with the guest. </summary>
@@ -38,11 +36,13 @@ namespace ProjectMomo.Model
     public Guest()
     {
       GuestBookPictures = new List<ShowerPicture>();
+      IsCheckedIn = false;
     }
 
     public void AddGuestBookPicture( ShowerPicture picture )
     {
       GuestBookPictures.Add(picture);
+      OnPropertyChanged("GuestBookPictures");
     }
 
     public ShowerPicture GetLastGuestBookPicture()

@@ -5,23 +5,22 @@ using System.Runtime.CompilerServices;
 using ProjectMomo.Model;
 using System.Windows;
 using ProjectMomo.Annotations;
+using ProjectMomo.Helpers;
 
 namespace ProjectMomo.ViewModel 
 {
 
   /// <summary>
   /// View model for the tab that displays the photo guest book for the event.
+  /// It manages guests checking in and picture additions.
+  /// 
+  /// If a Guest is selected, the on the OnFetchPicture event, the image will be added to that guest.
+  /// 
   /// </summary>
-  public class PhotoGuestBookViewModel : TabViewModel, INotifyPropertyChanged
+  public class PhotoGuestBookViewModel : TabViewModel, FetchPictureListener, INotifyPropertyChanged
   {
-    /// <summary>
-    /// Model associated with this view model.  </summary>
-    private PhotoGuestBook _guestBookModel = null;
-
-    public List<Guest> Guests
-    {
-      get{ return _guestBookModel.Guests; }
-    }
+    public List<Guest> Guests { get; set; }
+    public Guest CurrentGuest { get; set; }
 
     /// <summary>
     /// The selected image that is displayed in another smaller window to show a larger preview of it. </summary>
@@ -45,39 +44,44 @@ namespace ProjectMomo.ViewModel
       }
     }
 
-    public Guest SelectedGuest
+    /// <summary>
+    /// The guests that the view model is responsible for displaying and operating on.
+    /// </summary>
+    /// <param name="guests"></param>
+    public PhotoGuestBookViewModel( List<Guest> guests )
     {
-      get { return _guestBookModel.CurrentGuest; }
-      set
-      {
-        _guestBookModel.CurrentGuest = value; 
-        OnPropertyChanged();
-      }
+      Header = App.Current.FindResource("GuestBookHeader").ToString();
+      Guests = guests;
     }
 
     /// <summary>
-    /// Must inject the guest book model into the view model to display information in the view.
+    /// Method from interface to be implemented in order for a new shower image
+    /// to be assigned to the current guest.  If there is no current guest, no action occurs.
     /// </summary>
-    /// <param name="book"></param>
-    public PhotoGuestBookViewModel(PhotoGuestBook book)
+    /// <param name="image"></param>
+    public void OnFetchPicture(ShowerPicture image)
     {
-      Header = App.Current.FindResource("GuestBookHeader").ToString();
-      _guestBookModel = book;
-      _guestBookModel.PropertyChanged += ModelChanged;
+      if (null == CurrentGuest)
+        return;
+
+      CurrentGuest.AddGuestBookPicture(image);
+      OnPropertyChanged("CurrentGuest");
     }
 
-    private void ModelChanged(object sender, PropertyChangedEventArgs e)
+    public void CheckInCurrentGuest()
     {
-      OnPropertyChanged(String.Empty);
     }
 
+    #region INotifyProperChanged 
     public event PropertyChangedEventHandler PropertyChanged;
-
     [NotifyPropertyChangedInvocator]
     protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
       var handler = PropertyChanged;
       if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
     }
+    #endregion
+
+
   }
 }

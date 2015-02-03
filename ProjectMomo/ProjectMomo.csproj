@@ -68,7 +68,6 @@
     <Compile Include="Helpers\ISectionNavigation.cs" />
     <Compile Include="Helpers\ShowerImageRouter.cs" />
     <Compile Include="Model\Guest.cs" />
-    <Compile Include="Model\PhotoGuestBook.cs" />
     <Compile Include="Model\Shower.cs" />
     <Compile Include="ProjectMomoApp.cs" />
     <Compile Include="Model\ShowerPicture.cs" />

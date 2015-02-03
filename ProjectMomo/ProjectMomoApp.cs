@@ -21,7 +21,6 @@ namespace ProjectMomo
 
     // Models
     private Shower _currentShower;
-    private PhotoGuestBook _guestBook;
 
     // ViewModels
     private PhotoGuestBookViewModel _guestBookViewModel;
@@ -45,11 +44,9 @@ namespace ProjectMomo
       _currentShower = new Shower();
       _currentShower = _showerRepository.GetShower();
 
-      _guestBook = new PhotoGuestBook();
-
       // View Models
       _showerViewModel = new ShowerViewModel(_currentShower);
-      _guestBookViewModel = new PhotoGuestBookViewModel(_guestBook);
+      _guestBookViewModel = new PhotoGuestBookViewModel(_currentShower.Guests);
       _settingsViewModel = new SettingsViewModel(_fetchPictureService);
       _mainWindowViewModel = new MainWindowViewModel(_pictureRouter);
       
@@ -67,7 +64,7 @@ namespace ProjectMomo
     private void InitializeImageRouting()
     {
       _pictureRouter.RegisterDefaultRoute(_currentShower);
-      _pictureRouter.RegisterRoute(_guestBookViewModel.Header, _guestBook);
+      _pictureRouter.RegisterRoute(_guestBookViewModel.Header, _guestBookViewModel);
     }
 
     /// <summary>
@@ -87,8 +84,6 @@ namespace ProjectMomo
     /// </summary>
     public void Start()
     {
-      _guestBook.Guests = _currentShower.Guests;
-
       // todo - make this data bound instead of manually setting it
       _mainWindow.SetShowerName(_currentShower.ShowerName);
       _mainWindow.Show();
