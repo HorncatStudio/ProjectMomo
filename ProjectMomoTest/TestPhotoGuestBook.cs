@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ProjectMomo.Model;
 using ProjectMomo.Helpers;
 using System.Collections.Generic;
+using ProjectMomo.ViewModel;
 
 namespace ProjectMomoTest
 {
@@ -16,8 +17,7 @@ namespace ProjectMomoTest
           List<Guest> guestList = new List<Guest>();
           guestList.Add(guest);
 
-          PhotoGuestBook guestBook = new PhotoGuestBook();
-          guestBook.Guests = guestList;
+          PhotoGuestBookViewModel guestBook = new PhotoGuestBookViewModel(guestList);
           guestBook.CurrentGuest = guest;
 
           FakeFetchPictureService fetchService = new FakeFetchPictureService();
