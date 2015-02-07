@@ -4,19 +4,19 @@
     xmlns:view="clr-namespace:ProjectMomo.View"
     xmlns:local="clr-namespace:ProjectMomo"
     xmlns:ViewModel="clr-namespace:ProjectMomo.ViewModel"
-    Title="Project Momo" Height="350" Width="525">
-    <Window.Resources>
-    </Window.Resources>
+    Title="Project Momo" Height="459" Width="831">
+  <Window.Resources>
+  </Window.Resources>
   <Grid Background="White">
     <Grid.RowDefinitions>
       <RowDefinition Height="*"  />
       <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
-      <TabControl x:Name="ProjectMomoMainTabs" 
+    <TabControl x:Name="ProjectMomoMainTabs" 
                 ItemsSource="{Binding Tabs}" SelectedItem="{Binding SelectedTab}"
                 Grid.Row="0" BorderThickness="0">
       <TabControl.Resources>
-          <DataTemplate DataType="{x:Type ViewModel:ShowerViewModel}">
+        <DataTemplate DataType="{x:Type ViewModel:ShowerViewModel}">
           <view:ShowerView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type ViewModel:HomePageViewModel}">
@@ -28,7 +28,7 @@
         <DataTemplate DataType="{x:Type ViewModel:SettingsViewModel}">
           <view:SettingsView/>
         </DataTemplate>
-        
+
         <Style TargetType="TabItem">
           <Setter Property="Template">
             <Setter.Value>

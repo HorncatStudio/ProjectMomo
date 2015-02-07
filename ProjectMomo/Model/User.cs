@@ -12,12 +12,8 @@ namespace ProjectMomo.Model
     public string Email { get;set; }
     public List<Shower> RegisteredShowers { get; set; }
 
-    public User( string firstName, string lastName, string email )
+    public User()
     {
-      FirstName = firstName;
-      Lastname = lastName;
-      Email = email;
-
       RegisteredShowers = new List<Shower>();
     }
   }

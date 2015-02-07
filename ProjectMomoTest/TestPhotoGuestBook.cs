@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ProjectMomo.Model;
 using ProjectMomo.Helpers;
 using System.Collections.Generic;
+using System.Linq;
 using ProjectMomo.ViewModel;
 
 namespace ProjectMomoTest
@@ -26,7 +27,7 @@ namespace ProjectMomoTest
           ShowerPicture expectedPicture = new ShowerPicture(1);
           fetchService.SendPicture(expectedPicture);
 
-          ShowerPicture actualPicture = guest.GetLastGuestBookPicture();
+          ShowerPicture actualPicture = guest.GuestBookPictures.Last();
 
           Assert.AreSame( expectedPicture, actualPicture );
         }

@@ -44,6 +44,8 @@ namespace ProjectMomo.ViewModel
       }
     }
 
+
+    public RelayCommand AssignGiftPicture { get; set; }
     /// <summary>
     /// The guests that the view model is responsible for displaying and operating on.
     /// </summary>
@@ -52,6 +54,7 @@ namespace ProjectMomo.ViewModel
     {
       Header = App.Current.FindResource("GuestBookHeader").ToString();
       Guests = guests;
+      AssignGiftPicture = new RelayCommand(new Action<object>(OnAssignGiftPicture));
     }
 
     /// <summary>
@@ -82,6 +85,12 @@ namespace ProjectMomo.ViewModel
     }
     #endregion
 
-
+    private void OnAssignGiftPicture(object obj)
+    {
+      Console.WriteLine("Calling ASIGN AT LEASTS");
+      ShowerPicture picture = obj as ShowerPicture;
+      if (picture == null)
+        Console.WriteLine("FAILED TO SET PICTURE");
+    }
   }
 }

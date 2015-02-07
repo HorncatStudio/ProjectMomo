@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
+using System.IO;
+using System.Xml.Serialization;
 
 namespace ProjectMomo.Model
 {
@@ -16,16 +13,24 @@ namespace ProjectMomo.Model
     /// <summary>
     /// A unique identifier that shall be used when an image is read and saved into the repository.  </summary>
     private int _id;
-    
+
+    public string FileName
+    {
+      get { return Path.GetFileName(PicturePath.LocalPath); ; }
+      set {}
+    }    
+
     /// <summary>
     /// Returns the absolute file path of the URI provided. </summary>
     public string AbsolutePath
     {
       get { return PicturePath.AbsolutePath; }
+      set { }
     }
 
     /// <summary>
     /// The path of the image.  </summary>
+    [XmlIgnore]
     public Uri PicturePath { get; set; }
 
     public ShowerPicture()

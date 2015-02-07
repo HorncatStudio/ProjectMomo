@@ -3,23 +3,37 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="ProjectMomo.View.PhotoGuestBookView" 
+             x:Class="ProjectMomo.View.PhotoGuestBookView" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-  <Grid>
+  <UserControl.Resources>
+    <Image Source="/ProjectMomo;component/Resources/circle46.png" x:Key="NotCheckedImage" />
+    <Image Source="/ProjectMomo;component/Resources/verification13.png" x:Key="CheckedImage" />
+    <Style TargetType="{x:Type ToggleButton}" x:Key="MyToggleButtonStyle">
+      <Setter Property="Content" Value="{DynamicResource NotCheckedImage}" />
+      <Style.Triggers>
+        <Trigger Property="IsChecked" Value="True">
+          <Setter Property="Content" Value="{DynamicResource CheckedImage}" />
+        </Trigger>
+      </Style.Triggers>
+    </Style>
+  </UserControl.Resources>
+  <Grid Background="{StaticResource BackgroundImage}">
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="Auto"/>
       <ColumnDefinition Width="*" />
+      <ColumnDefinition Width="Auto"/>
     </Grid.ColumnDefinitions>
-    <ListBox x:Name="GuestsListBox" ItemsSource="{Binding Guests}" SelectedItem="{Binding CurrentGuest}"
-			BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+      <ListBox x:Name="GuestsListBox" ItemsSource="{Binding Guests}" SelectedItem="{Binding CurrentGuest}"
+			BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="Transparent">
       <ListBox.ItemTemplate>
         <DataTemplate>
-          <TextBlock Text="{Binding Name}" FontSize="16"/>
+            <TextBlock Text="{Binding Name}" FontSize="16" VerticalAlignment="Center" Margin="8"/>
         </DataTemplate>
       </ListBox.ItemTemplate>
     </ListBox>
-    <ListBox ItemsSource="{Binding SelectedItem.GuestBookPictures, ElementName=GuestsListBox}" 
+
+    <ListBox ItemsSource="{Binding SelectedItem.GuestBookPictures, ElementName=GuestsListBox, Mode=TwoWay}"  Background="Transparent"
 			Grid.Column="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0">
       <ListBox.ItemsPanel>
         <ItemsPanelTemplate>
@@ -37,5 +51,13 @@
       </ListBox.ItemTemplate>
     </ListBox>
 
+    <Grid Grid.Column="2">
+       <Grid.RowDefinitions>
+         <RowDefinition Height="Auto"/>
+         <RowDefinition Height="*"/>
+       </Grid.RowDefinitions>
+      <Label Grid.Row="0" Content="Gift Picture" FontSize="22"/>
+      <Image Grid.Row="1" Source="{Binding SelectedItem.GiftPicture.AbsolutePath, ElementName=GuestsListBox}" MinWidth="250"/>
+    </Grid>
   </Grid>
 </UserControl>

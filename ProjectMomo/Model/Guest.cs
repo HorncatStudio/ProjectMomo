@@ -18,7 +18,17 @@ namespace ProjectMomo.Model
 
     public string Name { get; set; }
     public string Address { get; set; }
-    public bool IsCheckedIn { get; set; }
+
+    private bool _isCheckedIn;
+    public bool IsCheckedIn
+    {
+      get { return _isCheckedIn; }
+      set
+      {
+        _isCheckedIn = value;
+        OnPropertyChanged();
+      }
+    }
 
     /// <summary>
     /// Container of guest book images that are associated with the guest. </summary>
@@ -33,6 +43,8 @@ namespace ProjectMomo.Model
       }
     }
 
+    public ShowerPicture GiftPicture { get; set; }
+
     public Guest()
     {
       GuestBookPictures = new List<ShowerPicture>();
@@ -42,16 +54,12 @@ namespace ProjectMomo.Model
     public void AddGuestBookPicture( ShowerPicture picture )
     {
       GuestBookPictures.Add(picture);
+
+      if (GuestBookPictures.Count == 1)
+        GiftPicture = picture;
+
       OnPropertyChanged("GuestBookPictures");
-    }
-
-    public ShowerPicture GetLastGuestBookPicture()
-    {
-      //! TODO: Another place for exception probably
-      if (!GuestBookPictures.Any())
-        return new ShowerPicture();
-
-      return GuestBookPictures.Last();
+      OnPropertyChanged("CurrentGuest");
     }
 
     public event PropertyChangedEventHandler PropertyChanged;
