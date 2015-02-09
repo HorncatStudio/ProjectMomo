@@ -25,7 +25,11 @@ namespace ProjectMomo.Model
     public string AbsolutePath
     {
       get { return PicturePath.AbsolutePath; }
-      set { }
+      set
+      {
+        if( File.Exists(value) )
+          PicturePath = new Uri(value);
+      }
     }
 
     /// <summary>

@@ -35,6 +35,16 @@ namespace ProjectMomo.Model
       MiscPictures = new List<ShowerPicture>();
     }
 
+    public bool ContainGuestNmae(string name)
+    {
+      foreach (var guest in Guests)
+      {
+        if (guest.Name == name)
+          return true;
+      }
+
+      return false;
+    }
 
     /// <summary>
     /// Method to an operation when a picture has been fetched and sent to this model.

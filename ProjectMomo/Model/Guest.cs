@@ -18,6 +18,7 @@ namespace ProjectMomo.Model
 
     public string Name { get; set; }
     public string Address { get; set; }
+    public string Email { get; set; }
 
     private bool _isCheckedIn;
     public bool IsCheckedIn

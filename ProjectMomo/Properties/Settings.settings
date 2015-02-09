@@ -5,5 +5,8 @@
     <Setting Name="FetchImageFilePath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="ShowerBackupFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.backupshower.xml</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

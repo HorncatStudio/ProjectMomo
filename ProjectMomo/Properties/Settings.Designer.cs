@@ -34,5 +34,17 @@ namespace ProjectMomo.Properties {
                 this["FetchImageFilePath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".backupshower.xml")]
+        public string ShowerBackupFile {
+            get {
+                return ((string)(this["ShowerBackupFile"]));
+            }
+            set {
+                this["ShowerBackupFile"] = value;
+            }
+        }
     }
 }

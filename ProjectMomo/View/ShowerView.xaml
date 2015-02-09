@@ -55,18 +55,20 @@
           <ColumnDefinition Width="Auto"/>
           <ColumnDefinition Width="Auto"/>
           <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="Auto"/>
           <ColumnDefinition Width="*"/>
       </Grid.ColumnDefinitions>
         <TextBlock Text="{Binding ShowerName}" HorizontalAlignment="Center"
-                   Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" FontSize="22" FontWeight="Bold"/>
-     
-        <Button Style="{StaticResource CircleButton}" Content="Export" Grid.Row="1" Grid.Column="1" Margin="5" IsEnabled="True" Command="{Binding SaveShowerCommand}" />
+                   Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" FontSize="22" FontWeight="Bold"/>
+
+    <Button Style="{StaticResource CircleButton}" Content="Export" Grid.Row="1" Grid.Column="1" Margin="5" IsEnabled="True" Command="{Binding ExportShowerCommand}" />
         <Button Style="{StaticResource CircleButton}" Grid.Row="1" Grid.Column="2"  Margin="5" Content="Print Gifts" IsEnabled="False" />
-        <Button Style="{StaticResource CircleButton}" Content="Load" IsEnabled="False" Grid.Column="3"  Margin="5" Grid.Row="1"/>
+    <Button Style="{StaticResource CircleButton}" Content="Load" IsEnabled="True" Grid.Column="3"  Margin="5" Grid.Row="1" Command="{Binding LoadShowerCommand}"/>
+      <Button Style="{StaticResource CircleButton}" Grid.Column="4" Grid.Row="1" Content="Guests Add" Command="{Binding ImportGuestsCommand}"/>
       
-        <Label Content="Shower Pictures" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="5" FontSize="24" Margin="0, 15, 0,0" />
+        <Label Content="Shower Pictures" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="6" FontSize="24" Margin="0, 15, 0,0" />
         <ListBox ItemsSource="{Binding ShowerPictures}"  Background="Transparent"
-			Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5"   ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0">
+			            Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="6"   ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel IsItemsHost="True"/>

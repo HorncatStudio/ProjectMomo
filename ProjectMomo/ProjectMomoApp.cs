@@ -1,4 +1,5 @@
-﻿using ProjectMomo.Helpers;
+﻿using System.IO;
+using ProjectMomo.Helpers;
 using ProjectMomo.Model;
 using ProjectMomo.ViewModel;
 
@@ -42,19 +43,28 @@ namespace ProjectMomo
 
       // Models
       _currentShower = new Shower();
-      _currentShower = _showerRepository.GetShower();
 
       // View Models
       _showerViewModel = new ShowerViewModel(_currentShower);
       _guestBookViewModel = new PhotoGuestBookViewModel(_currentShower.Guests);
       _settingsViewModel = new SettingsViewModel(_fetchPictureService);
       _mainWindowViewModel = new MainWindowViewModel(_pictureRouter);
-      
+
+      LoadShowerModel();
+
       InitializeTabNavigation();
       InitializeImageRouting();
 
       // Views
       _mainWindow = new MainWindow { DataContext = _mainWindowViewModel };
+    }
+
+    private void LoadShowerModel()
+    {
+      if( File.Exists(Properties.Settings.Default.ShowerBackupFile) )
+        _showerViewModel.LoadShower(Properties.Settings.Default.ShowerBackupFile);
+      else
+        _currentShower = _showerRepository.GetShower();
     }
 
     /// <summary>
