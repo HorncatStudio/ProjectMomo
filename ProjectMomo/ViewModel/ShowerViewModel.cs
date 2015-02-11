@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
 using Microsoft.Win32;
 using ProjectMomo.Helpers;
 using ProjectMomo.Model;
+using ProjectMomo.Properties;
 
 namespace ProjectMomo.ViewModel
 {
@@ -49,7 +48,7 @@ namespace ProjectMomo.ViewModel
 
     public void SaveShower()
     {
-      SaveShower(Properties.Settings.Default.ShowerBackupFile);
+      SaveShower(Settings.Default.ShowerBackupFile);
     }
     
     public void LoadShower(string filepath)
@@ -62,16 +61,8 @@ namespace ProjectMomo.ViewModel
 
         // A cheap copy in order to move on.  
         // would need to clean this up at a later time
-        _showerModel.Host = shower.Host;
-        _showerModel.Parter = shower.Parter;
-        _showerModel.Mama = shower.Mama;
-
-        _showerModel.Guests.Clear();
-        _showerModel.Guests.AddRange(shower.Guests);
-
-        _showerModel.MiscPictures = shower.MiscPictures;
-
-        Properties.Settings.Default.ShowerBackupFile = filepath;
+        _showerModel.ShallowCopy(shower);
+        Settings.Default.ShowerBackupFile = filepath;
       }
       catch (Exception e)
       {
@@ -83,7 +74,7 @@ namespace ProjectMomo.ViewModel
     {
       SaveFileDialog saveDialog = new SaveFileDialog
         {
-          FileName = Properties.Settings.Default.ShowerBackupFile,
+          FileName = Settings.Default.ShowerBackupFile,
           DefaultExt = "*.xml",
           Filter = "Shower XML documents (.xml)|*.xml"
         };
@@ -100,7 +91,7 @@ namespace ProjectMomo.ViewModel
     {
       OpenFileDialog openDialog = new OpenFileDialog
       {
-        FileName = Properties.Settings.Default.ShowerBackupFile,
+        FileName = Settings.Default.ShowerBackupFile,
         DefaultExt = "*.xml",
         Filter = "Shower XML documents (.xml)|*.xml"
       };
@@ -116,7 +107,7 @@ namespace ProjectMomo.ViewModel
     {
       OpenFileDialog openDialog = new OpenFileDialog
       {
-        FileName = Properties.Settings.Default.ShowerBackupFile,
+        FileName = Settings.Default.ShowerBackupFile,
         DefaultExt = "*.csv",
         Filter = "Shower Guests csv documents (.csv)|*.csv"
       };

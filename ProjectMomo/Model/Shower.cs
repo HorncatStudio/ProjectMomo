@@ -9,6 +9,7 @@ namespace ProjectMomo.Model
   /// </summary>
   public class Shower : FetchPictureListener
   {
+    #region Properties
     public User Host { get; set; }
     public User Parter { get; set; }
     public User Mama { get; set; }
@@ -29,6 +30,7 @@ namespace ProjectMomo.Model
         return showerName;
       }
     }
+    #endregion
 
     public Shower()
     {
@@ -40,6 +42,26 @@ namespace ProjectMomo.Model
       MiscPictures = new ObservableCollection<ShowerPicture>();
     }
 
+    /// <summary>
+    /// A cheap method to resolve an issue with needing to update the
+    /// reference of this object in the application.
+    /// 
+    /// Will refactor at a later time.
+    /// </summary>
+    /// <param name="shower"></param>
+    public void ShallowCopy(Shower shower)
+    {
+      Host = shower.Host;
+      Parter = shower.Parter;
+      Mama = shower.Mama;
+
+      Guests.Clear();
+      Guests.AddRange(shower.Guests);
+
+      MiscPictures = shower.MiscPictures;
+    }
+
+    #region Methods
     public bool ContainGuestNmae(string name)
     {
       foreach (var guest in Guests)
@@ -62,5 +84,6 @@ namespace ProjectMomo.Model
         MiscPictures.Add(image);
       });
     }
+    #endregion
   }
 }

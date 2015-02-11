@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using ProjectMomo.Helpers;
 using ProjectMomo.Model;
 using ProjectMomo.ViewModel;
@@ -65,9 +66,16 @@ namespace ProjectMomo
     private void LoadShowerModel()
     {
       if (File.Exists(Properties.Settings.Default.ShowerBackupFile))
-        _showerViewModel.LoadShower(Properties.Settings.Default.ShowerBackupFile);
+        try 
+        {
+          _showerViewModel.LoadShower(Properties.Settings.Default.ShowerBackupFile);
+        }
+        catch (Exception)
+        {
+          _currentShower.ShallowCopy(_showerRepository.GetShower());
+        }
       else
-        _currentShower = _showerRepository.GetShower();
+        _currentShower.ShallowCopy(_showerRepository.GetShower());
     }
 
     /// <summary>
