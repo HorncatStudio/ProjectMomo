@@ -28,6 +28,7 @@ namespace ProjectMomo
     private MainWindowViewModel _mainWindowViewModel;
     private SettingsViewModel _settingsViewModel;
     private ShowerViewModel _showerViewModel;
+    private GiftViewModel _gitViewModel;
 
     // View
     MainWindow _mainWindow;
@@ -43,12 +44,14 @@ namespace ProjectMomo
 
       // Models
       _currentShower = new Shower();
+      _currentShower = _showerRepository.GetShower();
 
       // View Models
       _showerViewModel = new ShowerViewModel(_currentShower);
       _guestBookViewModel = new PhotoGuestBookViewModel(_currentShower.Guests);
       _settingsViewModel = new SettingsViewModel(_fetchPictureService);
       _mainWindowViewModel = new MainWindowViewModel(_pictureRouter);
+      _gitViewModel = new GiftViewModel(_currentShower);
 
       LoadShowerModel();
 
@@ -61,7 +64,7 @@ namespace ProjectMomo
 
     private void LoadShowerModel()
     {
-      if( File.Exists(Properties.Settings.Default.ShowerBackupFile) )
+      if (File.Exists(Properties.Settings.Default.ShowerBackupFile))
         _showerViewModel.LoadShower(Properties.Settings.Default.ShowerBackupFile);
       else
         _currentShower = _showerRepository.GetShower();
@@ -75,6 +78,7 @@ namespace ProjectMomo
     {
       _pictureRouter.RegisterDefaultRoute(_currentShower);
       _pictureRouter.RegisterRoute(_guestBookViewModel.Header, _guestBookViewModel);
+      _pictureRouter.RegisterRoute(_gitViewModel.Header, _gitViewModel);
     }
 
     /// <summary>
@@ -84,6 +88,7 @@ namespace ProjectMomo
     {
       _mainWindowViewModel.Tabs.Add(_showerViewModel);
       _mainWindowViewModel.Tabs.Add(_guestBookViewModel);
+      _mainWindowViewModel.Tabs.Add(_gitViewModel);
       _mainWindowViewModel.Tabs.Add(_settingsViewModel);
       _mainWindowViewModel.SelectedTab = _showerViewModel;
     }
@@ -103,6 +108,7 @@ namespace ProjectMomo
 
     public void Stop()
     {
+      _showerViewModel.SaveShower();
       _fetchPictureService.Stop();
     }
   }

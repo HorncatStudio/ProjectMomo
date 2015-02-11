@@ -58,6 +58,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Helpers\DispatcherService.cs" />
+    <Compile Include="View\DebugDataBindingConverter.cs" />
     <Compile Include="Helpers\FakeShowerRepository.cs" />
     <Compile Include="Helpers\FetchPictureListener.cs" />
     <Compile Include="Helpers\FakeFetchPictureService.cs" />
@@ -73,12 +75,16 @@
     <Compile Include="Model\ShowerPicture.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="ViewModel\GiftViewModel.cs" />
     <Compile Include="ViewModel\HomePageViewModel.cs" />
     <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="ViewModel\PhotoGuestBookViewModel.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />
     <Compile Include="ViewModel\ShowerViewModel.cs" />
     <Compile Include="ViewModel\TabViewModel.cs" />
+    <Compile Include="View\GiftView.xaml.cs">
+      <DependentUpon>GiftView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\HomePageView.xaml.cs">
       <DependentUpon>HomePageView.xaml</DependentUpon>
     </Compile>
@@ -103,6 +109,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\GiftView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\HomePageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

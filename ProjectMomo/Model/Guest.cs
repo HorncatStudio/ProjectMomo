@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using ProjectMomo.Annotations;
+using ProjectMomo.Helpers;
 
 namespace ProjectMomo.Model
 {
@@ -11,57 +12,37 @@ namespace ProjectMomo.Model
   /// </summary>
   public class Guest : INotifyPropertyChanged
   {
-    /// <summary>
-    /// Unique identifier that shal be used for retrieving and storing information
-    /// related to a guest in the repository. </summary>
-    private int _id;
-
+    #region Properties
     public string Name { get; set; }
     public string Address { get; set; }
     public string Email { get; set; }
 
-    private bool _isCheckedIn;
-    public bool IsCheckedIn
-    {
-      get { return _isCheckedIn; }
-      set
-      {
-        _isCheckedIn = value;
-        OnPropertyChanged();
-      }
-    }
-
+   
     /// <summary>
     /// Container of guest book images that are associated with the guest. </summary>
-    private List<ShowerPicture> _guestBookPictures; 
-    public List<ShowerPicture> GuestBookPictures
-    {
-      get { return _guestBookPictures; }
-      set
-      {
-        _guestBookPictures = value;
-        OnPropertyChanged();
-      }
-    }
-
+    public ObservableCollection<ShowerPicture> GuestBookPictures { get; set; }
+    public ObservableCollection<ShowerPicture> ShowerGiftPictures { get; set; }
+    public string GiftsText { get; set; }
     public ShowerPicture GiftPicture { get; set; }
+    #endregion
 
     public Guest()
     {
-      GuestBookPictures = new List<ShowerPicture>();
-      IsCheckedIn = false;
+      GuestBookPictures = new ObservableCollection<ShowerPicture>();
+      ShowerGiftPictures = new ObservableCollection<ShowerPicture>();
     }
 
     public void AddGuestBookPicture( ShowerPicture picture )
     {
-      GuestBookPictures.Add(picture);
+      DispatchService.Invoke(() =>
+      {
+       GuestBookPictures.Add(picture);
+      });
 
       if (GuestBookPictures.Count == 1)
         GiftPicture = picture;
-
-      OnPropertyChanged("GuestBookPictures");
-      OnPropertyChanged("CurrentGuest");
     }
+
 
     public event PropertyChangedEventHandler PropertyChanged;
     [NotifyPropertyChangedInvocator]

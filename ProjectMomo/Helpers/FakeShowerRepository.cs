@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ProjectMomo.Model;
 
 namespace ProjectMomo.Helpers
@@ -22,49 +19,51 @@ namespace ProjectMomo.Helpers
       
       string fullPicturePath = Path.GetFullPath("Angelina&Shinichi_056.jpg");
 
-      shower.MiscPictures = new List<ShowerPicture> {
-        new ShowerPicture { PicturePath = new Uri(fullPicturePath) },
-        new ShowerPicture { PicturePath = new Uri(fullPicturePath) },
-        new ShowerPicture { PicturePath = new Uri(fullPicturePath) }
+      shower.MiscPictures = new ObservableCollection<ShowerPicture> {
+        new ShowerPicture { AbsolutePath = fullPicturePath },
+        new ShowerPicture { AbsolutePath = fullPicturePath },
+        new ShowerPicture { AbsolutePath = fullPicturePath }
       };
 
       List<Guest> guestList = new List<Guest> {
-        new Guest{ Name="Anastasia Antonison", Address="12013 Mount Charron Road NW, Huntsville AL 35806", GiftPicture =  new ShowerPicture { PicturePath = new Uri(fullPicturePath) },
-          GuestBookPictures = new List<ShowerPicture>
+        new Guest{ Name="Anastasia Antonison", Address="12013 Mount Charron Road NW, Huntsville AL 35806", GiftPicture = new ShowerPicture { AbsolutePath = fullPicturePath },
+          GuestBookPictures = new ObservableCollection<ShowerPicture>
           {
-            new ShowerPicture { PicturePath = new Uri(fullPicturePath) },
-            new ShowerPicture { PicturePath = new Uri(fullPicturePath) },
-            new ShowerPicture { PicturePath = new Uri(fullPicturePath) }
+            new ShowerPicture { AbsolutePath = fullPicturePath },
+            new ShowerPicture { AbsolutePath = fullPicturePath },
+            new ShowerPicture { AbsolutePath = fullPicturePath }
           }
         },
-        new Guest{ Name="Nancy Morris", Address="227 Ryland Pike, Huntsville AL 35811", GiftPicture =  new ShowerPicture { PicturePath = new Uri(fullPicturePath) },
-          GuestBookPictures = new List<ShowerPicture>
+        new Guest{ Name="Nancy Morris", Address="227 Ryland Pike, Huntsville AL 35811", GiftPicture =  new ShowerPicture { AbsolutePath = fullPicturePath },
+          GuestBookPictures = new ObservableCollection<ShowerPicture>
           {
-            new ShowerPicture { PicturePath = new Uri(fullPicturePath) },
-            new ShowerPicture { PicturePath = new Uri(fullPicturePath) },
+            new ShowerPicture { AbsolutePath = fullPicturePath },
+            new ShowerPicture { AbsolutePath = fullPicturePath }
           }
         },
-        new Guest{ Name="Nancy Perry", Address="12774 Wall Triana Blvd, Ardmore AL 35739", GiftPicture =  new ShowerPicture { PicturePath = new Uri(fullPicturePath) },
-          GuestBookPictures = new List<ShowerPicture>
+        new Guest{ Name="Nancy Perry", Address="12774 Wall Triana Blvd, Ardmore AL 35739", GiftPicture = new ShowerPicture { AbsolutePath = fullPicturePath },
+          GuestBookPictures = new ObservableCollection<ShowerPicture>
           {
-            new ShowerPicture { PicturePath = new Uri(fullPicturePath) },
-            new ShowerPicture { PicturePath = new Uri(fullPicturePath) },
-            new ShowerPicture { PicturePath = new Uri(fullPicturePath) },
-            new ShowerPicture { PicturePath = new Uri(fullPicturePath) }
+            new ShowerPicture { AbsolutePath = fullPicturePath },
+            new ShowerPicture { AbsolutePath = fullPicturePath },
+            new ShowerPicture { AbsolutePath = fullPicturePath },
+            new ShowerPicture { AbsolutePath = fullPicturePath },
+            new ShowerPicture { AbsolutePath = fullPicturePath },
+            new ShowerPicture { AbsolutePath = fullPicturePath }
           }
         },
-        new Guest{ Name="Amy Helser", Address="2702 Bronte Cir., Owens Cross Roads, AL 35763", GiftPicture =  new ShowerPicture { PicturePath = new Uri(fullPicturePath) },
-          GuestBookPictures = new List<ShowerPicture>
+        new Guest{ Name="Amy Helser", Address="2702 Bronte Cir., Owens Cross Roads, AL 35763", GiftPicture =  new ShowerPicture { AbsolutePath = fullPicturePath },
+          GuestBookPictures = new ObservableCollection<ShowerPicture>
           {
-            new ShowerPicture { PicturePath = new Uri(fullPicturePath) }
+            new ShowerPicture { AbsolutePath = fullPicturePath }
           }
         },
-        new Guest{ Name="Janey Pearson", Address="1001 Water Hill Road Apartment #3004, Madison AL 35758", GiftPicture =  new ShowerPicture { PicturePath = new Uri(fullPicturePath) },
-          GuestBookPictures = new List<ShowerPicture>
+        new Guest{ Name="Janey Pearson", Address="1001 Water Hill Road Apartment #3004, Madison AL 35758", GiftPicture = new ShowerPicture { AbsolutePath = fullPicturePath },
+          GuestBookPictures = new ObservableCollection<ShowerPicture>
           {
-            new ShowerPicture { PicturePath = new Uri(fullPicturePath) },
-            new ShowerPicture { PicturePath = new Uri(fullPicturePath) },
-            new ShowerPicture { PicturePath = new Uri(fullPicturePath) },
+            new ShowerPicture { AbsolutePath = fullPicturePath },
+            new ShowerPicture { AbsolutePath = fullPicturePath },
+            new ShowerPicture { AbsolutePath = fullPicturePath }
           }
         }    
       };

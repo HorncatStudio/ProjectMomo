@@ -71,10 +71,6 @@ namespace ProjectMomo.ViewModel
       OnPropertyChanged("CurrentGuest");
     }
 
-    public void CheckInCurrentGuest()
-    {
-    }
-
     #region INotifyProperChanged 
     public event PropertyChangedEventHandler PropertyChanged;
     [NotifyPropertyChangedInvocator]

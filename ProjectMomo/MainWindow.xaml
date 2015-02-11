@@ -28,6 +28,9 @@
         <DataTemplate DataType="{x:Type ViewModel:SettingsViewModel}">
           <view:SettingsView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type ViewModel:GiftViewModel}">
+          <view:GiftView/>
+        </DataTemplate>
 
         <Style TargetType="TabItem">
           <Setter Property="Template">

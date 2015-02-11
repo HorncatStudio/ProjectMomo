@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using ProjectMomo.Helpers;
 
 namespace ProjectMomo.Model
@@ -12,7 +13,7 @@ namespace ProjectMomo.Model
     public User Parter { get; set; }
     public User Mama { get; set; }
     public List<Guest> Guests { get; set; }
-    public List<ShowerPicture> MiscPictures { get; set; }
+    public ObservableCollection<ShowerPicture> MiscPictures { get; set; }
 
     /// <summary>
     /// Returns a shower name.  At this time all showers are determined to be baby showers.
@@ -31,8 +32,12 @@ namespace ProjectMomo.Model
 
     public Shower()
     {
+      Host = new User();
+      Parter = new User();
+      Mama = new User();
+
       Guests = new List<Guest>();
-      MiscPictures = new List<ShowerPicture>();
+      MiscPictures = new ObservableCollection<ShowerPicture>();
     }
 
     public bool ContainGuestNmae(string name)
@@ -52,7 +57,10 @@ namespace ProjectMomo.Model
     /// <param name="image"></param>
     public void OnFetchPicture(ShowerPicture image)
     {
-      MiscPictures.Add(image);
+      DispatchService.Invoke(() =>
+      {
+        MiscPictures.Add(image);
+      });
     }
   }
 }

@@ -61,11 +61,15 @@ namespace ProjectMomo.Helpers
     {
       Console.WriteLine("File: " + e.FullPath + " " + e.ChangeType);
       string newFilePath = _localDataDirectoryPath + "//" + e.Name;
-      File.Move(e.FullPath, newFilePath);
+
+      if( !File.Exists(newFilePath) )
+        File.Move(e.FullPath, newFilePath);
+      else
+        File.Delete(e.FullPath);
 
       ShowerPicture picture = new ShowerPicture
       {
-        PicturePath = new Uri(newFilePath)
+        AbsolutePath = newFilePath
       };
 
       foreach (var listener in _listeners)

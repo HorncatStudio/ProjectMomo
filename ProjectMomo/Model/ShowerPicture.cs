@@ -1,55 +1,29 @@
-﻿using System;
-using System.IO;
-using System.Xml.Serialization;
+﻿using System.IO;
 
 namespace ProjectMomo.Model
 {
   /// <summary>
   /// A picture model that holds all information unique to a picture in the application.
+  /// 
+  /// todo - Cache the picture for display only in the future
   /// </summary>
   public class ShowerPicture
   {
-    private const int InvalidId = -1;
-    /// <summary>
-    /// A unique identifier that shall be used when an image is read and saved into the repository.  </summary>
-    private int _id;
-
     public string FileName
     {
-      get { return Path.GetFileName(PicturePath.LocalPath); ; }
+      get { return Path.GetFileName(_absoluteFilePath); }
       set {}
-    }    
+    }
 
-    /// <summary>
-    /// Returns the absolute file path of the URI provided. </summary>
+    private string _absoluteFilePath;
     public string AbsolutePath
     {
-      get { return PicturePath.AbsolutePath; }
+      get { return _absoluteFilePath; }
       set
       {
-        if( File.Exists(value) )
-          PicturePath = new Uri(value);
+        if (File.Exists(value))
+          _absoluteFilePath = value;
       }
-    }
-
-    /// <summary>
-    /// The path of the image.  </summary>
-    [XmlIgnore]
-    public Uri PicturePath { get; set; }
-
-    public ShowerPicture()
-      : this(InvalidId)
-    {
-    }
-
-    public ShowerPicture( int id )
-    {
-      _id = id;
-    }
-
-    public bool IsNull()
-    {
-      return (InvalidId == _id);
     }
   }
 }

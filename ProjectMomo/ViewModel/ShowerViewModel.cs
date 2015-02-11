@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Xml;
@@ -17,7 +18,7 @@ namespace ProjectMomo.ViewModel
       get { return _showerModel.ShowerName; }
     }
 
-    public List<ShowerPicture> ShowerPictures
+    public ObservableCollection<ShowerPicture> ShowerPictures
     {
       get { return _showerModel.MiscPictures; }
     }
@@ -45,26 +46,37 @@ namespace ProjectMomo.ViewModel
       serializer.Serialize(writer, _showerModel);
       writer.Close();
     }
+
+    public void SaveShower()
+    {
+      SaveShower(Properties.Settings.Default.ShowerBackupFile);
+    }
     
     public void LoadShower(string filepath)
     {
       XmlSerializer deserializer = new XmlSerializer(typeof (Shower));
       XmlReader reader = XmlReader.Create(filepath);
-      
-      Shower shower = (Shower) deserializer.Deserialize(reader);
+      try
+      {
+        Shower shower = (Shower) deserializer.Deserialize(reader);
 
-      // A cheap copy in order to move on.  
-      // would need to clean this up at a later time
-      _showerModel.Host = shower.Host;
-      _showerModel.Parter = shower.Parter;
-      _showerModel.Mama = shower.Mama;
+        // A cheap copy in order to move on.  
+        // would need to clean this up at a later time
+        _showerModel.Host = shower.Host;
+        _showerModel.Parter = shower.Parter;
+        _showerModel.Mama = shower.Mama;
 
-      _showerModel.Guests.Clear();
-      _showerModel.Guests.AddRange(shower.Guests);
+        _showerModel.Guests.Clear();
+        _showerModel.Guests.AddRange(shower.Guests);
 
-      _showerModel.MiscPictures = shower.MiscPictures;
+        _showerModel.MiscPictures = shower.MiscPictures;
 
-      Properties.Settings.Default.ShowerBackupFile = filepath;
+        Properties.Settings.Default.ShowerBackupFile = filepath;
+      }
+      catch (Exception e)
+      {
+        Console.WriteLine("Failed to load XML document.");
+      }
     }
 
     private void OnExportShower(object obj)
