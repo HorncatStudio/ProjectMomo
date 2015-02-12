@@ -4,12 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:projectMomo="clr-namespace:ProjectMomo"
+             xmlns:helpers="clr-namespace:ProjectMomo.Helpers"
              x:Class="ProjectMomo.View.PhotoGuestBookView" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
   <UserControl.Resources>
     <Image Source="/ProjectMomo;component/Resources/circle46.png" x:Key="NotCheckedImage" />
     <Image Source="/ProjectMomo;component/Resources/verification13.png" x:Key="CheckedImage" />
+    <Image Source="/ProjectMomo;component/Resources/pencil43.png" x:Key="EditImage" />
+    <Image Source="/ProjectMomo;component/Resources/correct9.png" x:Key="ChooseGiftImage" />
+    <helpers:NotConverter x:Key="NotConverter"/>
     <Style TargetType="{x:Type ToggleButton}" x:Key="MyToggleButtonStyle">
       <Setter Property="Content" Value="{DynamicResource NotCheckedImage}" />
       <Style.Triggers>
@@ -41,32 +45,49 @@
     </ListBox>
     <Button Grid.Row="1" Grid.Column="0" Content="Add Guest" Command="{Binding AddGuestCommand}"/>
     
-  <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" >
-         <Grid.RowDefinitions>
+     <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" >
+        <Grid.RowDefinitions>
            <RowDefinition Height="Auto"/>
            <RowDefinition Height="Auto"/>
            <RowDefinition Height="Auto"/>
            <RowDefinition Height="*"/>
          </Grid.RowDefinitions>
+       <Grid.ColumnDefinitions>
+         <ColumnDefinition Width="*"/>
+         <ColumnDefinition Width="Auto"/>
+       </Grid.ColumnDefinitions>
         <Label Grid.Row="0" Content="Contact" FontSize="22"/>
-      <TextBox Grid.Row="1" Text="{Binding SelectedItem.Address, ElementName=GuestsListBox}" TextWrapping="Wrap" FontSize="18" Margin="5" IsReadOnly="True" MinLines="3"/>
-        <Label Grid.Row="2" Content="Gift Picture" FontSize="22"/>
-      <Image Grid.Row="3" Source="{Binding SelectedItem.GiftPicture.AbsolutePath, ElementName=GuestsListBox}"  Margin="5" />
-      </Grid>
+        <ToggleButton x:Name="EditingEnabledToggleButton" Grid.Row="0" Grid.Column="1" Content="{DynamicResource EditImage}" MaxWidth="24" MaxHeight="24"/>
+        
+       <TextBox Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding SelectedItem.Address, ElementName=GuestsListBox}" TextWrapping="Wrap" FontSize="18" Margin="5" IsReadOnly="{Binding IsChecked, ElementName=EditingEnabledToggleButton, Converter={StaticResource NotConverter}}" MinLines="3"/>
+        
+       <Label Grid.Row="2" Content="Gift Picture" FontSize="22"/>
+      <Button Grid.Row="2" Grid.Column="1" Content="{StaticResource ChooseGiftImage}" MaxWidth="24" MaxHeight="24" Command="{Binding AssignGiftPicture}"/>
+
+      <Image Grid.Row="3"  Grid.ColumnSpan="2" Source="{Binding SelectedItem.GiftPicture.AbsolutePath, ElementName=GuestsListBox, UpdateSourceTrigger=PropertyChanged}"  Margin="5" />
+     </Grid>
     
-    <ListBox ItemsSource="{Binding SelectedItem.GuestBookPictures, ElementName=GuestsListBox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Background="Transparent"
+    <ListBox ItemsSource="{Binding SelectedItem.GuestBookPictures, ElementName=GuestsListBox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedImage}" Background="Transparent"
 			Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0">
       <ListBox.ItemsPanel>
         <ItemsPanelTemplate>
           <WrapPanel IsItemsHost="True"/>
         </ItemsPanelTemplate>
       </ListBox.ItemsPanel>
+      
       <ListBox.ItemTemplate>
         <DataTemplate>
           <Image Source="{Binding AbsolutePath}"  Margin="5" Width="120" Height="120">
             <Image.Effect>
               <DropShadowEffect Opacity=".5" ShadowDepth="2" BlurRadius="7"/>
             </Image.Effect>
+            <Image.InputBindings>
+              <MouseBinding MouseAction="LeftDoubleClick" 
+                            Command="{Binding DataContext.DisplayPicCommand, 
+                                              RelativeSource={RelativeSource FindAncestor, 
+                                                AncestorType={x:Type UserControl}}}"
+                            CommandParameter="{Binding .}"/>
+            </Image.InputBindings>
           </Image>
         </DataTemplate>
       </ListBox.ItemTemplate>

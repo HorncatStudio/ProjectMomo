@@ -23,7 +23,17 @@ namespace ProjectMomo.Model
     public ObservableCollection<ShowerPicture> GuestBookPictures { get; set; }
     public ObservableCollection<ShowerPicture> ShowerGiftPictures { get; set; }
     public string GiftsText { get; set; }
-    public ShowerPicture GiftPicture { get; set; }
+
+    private ShowerPicture _giftPicture;
+    public ShowerPicture GiftPicture
+    {
+      get { return _giftPicture; }
+      set
+      {
+        _giftPicture = value;
+        OnPropertyChanged();
+      } 
+    }
     #endregion
 
     public Guest()

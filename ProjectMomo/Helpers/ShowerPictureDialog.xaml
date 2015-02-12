@@ -1,0 +1,8 @@
+﻿<Window x:Class="ProjectMomo.Helpers.ShowerPictureDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="{Binding Picture.FileName}" Height="600" Width="480">
+    <Grid>
+        <Image Source="{Binding Picture.AbsolutePath}"/>
+    </Grid>
+</Window>

@@ -31,30 +31,13 @@ namespace ProjectMomo.ViewModel
 
     /// <summary>
     /// The selected image that is displayed in another smaller window to show a larger preview of it. </summary>
-    ShowerPicture _SelectedImage;
-    public ShowerPicture SelectedImage
-    {
-      get { return _SelectedImage; }
-      set
-      {
-        if (_SelectedImage != value)
-        {
-          _SelectedImage = value;
-          //! Temporary placeholder for code where a smaller window with the image would
-          //! open if selected.
-          if (value != null)
-          {
-            var win = new Window(); 
-            win.Show();
-          }
-        }
-      }
-    }
+    public ShowerPicture SelectedImage { get; set; }
     #endregion
 
     #region Commands
     public RelayCommand AssignGiftPicture { get; set; }
     public RelayCommand AddGuestCommand { get; set; }
+    public RelayCommand DisplayPicCommand { get; set; }
     #endregion
 
     /// <summary>
@@ -67,7 +50,10 @@ namespace ProjectMomo.ViewModel
       _showerModel = shower;
       AssignGiftPicture = new RelayCommand(new Action<object>(OnAssignGiftPicture));
       AddGuestCommand = new RelayCommand( new Action<object>(AddGuest));
+      DisplayPicCommand = new RelayCommand(new Action<object>(DisplayPicture));
     }
+
+
 
     #region Command Methods
     private void AddGuest(object obj)
@@ -82,13 +68,26 @@ namespace ProjectMomo.ViewModel
       });
     }
 
+    private void DisplayPicture(object obj)
+    {
+      if (obj == null)
+        return;
+
+      var win = new ShowerPictureDialog
+      {
+        Picture =  (ShowerPicture) obj
+      };
+      win.Show();
+    }
+
     private void OnAssignGiftPicture(object obj)
     {
-      Console.WriteLine("Calling ASIGN AT LEASTS");
-      ShowerPicture picture = obj as ShowerPicture;
-      if (picture == null)
-        Console.WriteLine("FAILED TO SET PICTURE");
+      if (null == SelectedImage)
+        return;
+
+      CurrentGuest.GiftPicture = SelectedImage;
     }
+
     #endregion
     /// <summary>
     /// Method from interface to be implemented in order for a new shower image

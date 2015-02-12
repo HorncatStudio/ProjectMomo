@@ -11,6 +11,13 @@ namespace ProjectMomo.Helpers
     public Guest CachedGuest { get; set; }
     public bool IsGroup { get; set; }
 
+    public string Message { get; set; }
+
+    public GuestDialog(string messaeg)
+    {
+      Message = messaeg;
+    }
+
     public GuestDialog( bool isGroup = false )
     {
       InitializeComponent();

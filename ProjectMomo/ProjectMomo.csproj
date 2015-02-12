@@ -62,6 +62,10 @@
     <Compile Include="Helpers\GuestDialog.xaml.cs">
       <DependentUpon>GuestDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\NotConverter.cs" />
+    <Compile Include="Helpers\ShowerPictureDialog.xaml.cs">
+      <DependentUpon>ShowerPictureDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\DebugDataBindingConverter.cs" />
     <Compile Include="Helpers\FakeShowerRepository.cs" />
     <Compile Include="Helpers\FetchPictureListener.cs" />
@@ -101,6 +105,10 @@
       <DependentUpon>ShowerView.xaml</DependentUpon>
     </Compile>
     <Page Include="Helpers\GuestDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Helpers\ShowerPictureDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -188,6 +196,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Image1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\correct9.png" />
+    <Resource Include="Resources\pencil43.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
