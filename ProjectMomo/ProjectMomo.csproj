@@ -164,6 +164,17 @@
     <Resource Include="Resources\circle46.png" />
     <Resource Include="Resources\verification13.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\add133.png" />
+    <Resource Include="Resources\birthday19.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\export1.png" />
+    <Resource Include="Resources\gift41.png" />
+    <Resource Include="Resources\group58.png" />
+    <Resource Include="Resources\import1.png" />
+    <Resource Include="Resources\man204.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
