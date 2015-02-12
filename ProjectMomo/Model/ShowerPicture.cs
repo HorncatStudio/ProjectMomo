@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Reflection;
 
 namespace ProjectMomo.Model
 {
@@ -18,7 +19,13 @@ namespace ProjectMomo.Model
     private string _absoluteFilePath;
     public string AbsolutePath
     {
-      get { return _absoluteFilePath; }
+      get
+      {
+        if( string.IsNullOrEmpty(_absoluteFilePath) )
+          return "../Resources/NoGiftPicture.png";
+
+        return _absoluteFilePath;
+      }
       set
       {
         if (File.Exists(value))
