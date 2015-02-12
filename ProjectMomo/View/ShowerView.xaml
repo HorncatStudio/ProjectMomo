@@ -62,7 +62,7 @@
               <ColumnDefinition Width="Auto"/>
               <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Image Grid.Column="0" Source="C:\Users\Angelina\Source\Repos\ProjectMomo\ProjectMomo\Resources\export1.png" Width="32"/>
+          <Image Grid.Column="0" Source="/Resources\export1.png" Width="32"/>
             <TextBox Grid.Column="1" Background="Transparent" BorderThickness="0">Export</TextBox>
           </Grid>
         </Button>
@@ -72,7 +72,7 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
           </Grid.ColumnDefinitions>
-          <Image Grid.Column="0" Source="C:\Users\Angelina\Source\Repos\ProjectMomo\ProjectMomo\Resources\gift41.png"/>
+          <Image Grid.Column="0" Source="/Resources\gift41.png"/>
           <TextBox Grid.Column="1" Background="Transparent" BorderThickness="0">Print Gifts</TextBox>
         </Grid>
       </Button>
@@ -82,7 +82,7 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
           </Grid.ColumnDefinitions>
-          <Image Grid.Column="0" Source="C:\Users\Angelina\Source\Repos\ProjectMomo\ProjectMomo\Resources\import1.png" Width="32"/>
+          <Image Grid.Column="0" Source="/Resources\import1.png" Width="32"/>
           <TextBox Grid.Column="1" Background="Transparent" BorderThickness="0">Import Shower</TextBox>
         </Grid>
       </Button>
@@ -92,7 +92,7 @@
               <ColumnDefinition Width="Auto"/>
               <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Image Grid.Column="0" Source="C:\Users\Angelina\Source\Repos\ProjectMomo\ProjectMomo\Resources\group58.png" Width="32"/>
+          <Image Grid.Column="0" Source="/Resources\group58.png" Width="32"/>
             <TextBox Grid.Column="1" Background="Transparent" BorderThickness="0">Import Guests</TextBox>
           </Grid>
         </Button>
