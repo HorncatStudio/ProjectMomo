@@ -13,7 +13,7 @@ namespace ProjectMomo.Model
     public User Host { get; set; }
     public User Parter { get; set; }
     public User Mama { get; set; }
-    public List<Guest> Guests { get; set; }
+    public ObservableCollection<Guest> Guests { get; set; }
     public ObservableCollection<ShowerPicture> MiscPictures { get; set; }
 
     /// <summary>
@@ -38,7 +38,7 @@ namespace ProjectMomo.Model
       Parter = new User();
       Mama = new User();
 
-      Guests = new List<Guest>();
+      Guests = new ObservableCollection<Guest>();
       MiscPictures = new ObservableCollection<ShowerPicture>();
     }
 
@@ -55,9 +55,12 @@ namespace ProjectMomo.Model
       Parter = shower.Parter;
       Mama = shower.Mama;
 
-      Guests.Clear();
-      Guests.AddRange(shower.Guests);
-
+      //Guests.Clear();
+      //foreach(Guest guest in shower.Guests)
+      //{
+      //  Guests.Add(guest);
+      //}
+      Guests = shower.Guests;
       MiscPictures = shower.MiscPictures;
     }
 

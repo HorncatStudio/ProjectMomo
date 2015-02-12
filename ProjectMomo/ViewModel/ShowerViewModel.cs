@@ -122,7 +122,10 @@ namespace ProjectMomo.ViewModel
       {
         string[] data = line.Split(';');
         // We return a person with the data in order.
-        
+
+        if (string.IsNullOrEmpty(data[0]))
+          continue;
+
         Guest guest = new Guest {Name = data[0]};
 
         bool containsAddress = (data.Length == 2);

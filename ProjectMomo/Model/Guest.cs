@@ -30,6 +30,11 @@ namespace ProjectMomo.Model
     {
       GuestBookPictures = new ObservableCollection<ShowerPicture>();
       ShowerGiftPictures = new ObservableCollection<ShowerPicture>();
+      Name = "";
+      Address = "";
+      Email = "";
+      GiftsText = "";
+      GiftPicture = new ShowerPicture();
     }
 
     public void AddGuestBookPicture( ShowerPicture picture )

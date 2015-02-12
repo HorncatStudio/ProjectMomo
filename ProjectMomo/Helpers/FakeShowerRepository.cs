@@ -25,7 +25,7 @@ namespace ProjectMomo.Helpers
         new ShowerPicture { AbsolutePath = fullPicturePath }
       };
 
-      List<Guest> guestList = new List<Guest> {
+      ObservableCollection<Guest> guestList = new ObservableCollection<Guest> {
         new Guest{ Name="Anastasia Antonison", Address="12013 Mount Charron Road NW, Huntsville AL 35806", GiftPicture = new ShowerPicture { AbsolutePath = fullPicturePath },
           GuestBookPictures = new ObservableCollection<ShowerPicture>
           {

@@ -49,7 +49,7 @@ namespace ProjectMomo
 
       // View Models
       _showerViewModel = new ShowerViewModel(_currentShower);
-      _guestBookViewModel = new PhotoGuestBookViewModel(_currentShower.Guests);
+      _guestBookViewModel = new PhotoGuestBookViewModel(_currentShower);
       _settingsViewModel = new SettingsViewModel(_fetchPictureService);
       _mainWindowViewModel = new MainWindowViewModel(_pictureRouter);
       _gitViewModel = new GiftViewModel(_currentShower);

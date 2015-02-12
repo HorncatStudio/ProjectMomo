@@ -26,8 +26,12 @@
       <ColumnDefinition Width="*" />
       <ColumnDefinition Width="Auto"/>
     </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
     
-      <ListBox x:Name="GuestsListBox" ItemsSource="{Binding Guests}" SelectedItem="{Binding CurrentGuest}"
+    <ListBox Grid.Row="0" Grid.Column="0" x:Name="GuestsListBox" ItemsSource="{Binding Guests}" SelectedItem="{Binding CurrentGuest}"
 			BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="Transparent">
       <ListBox.ItemTemplate>
         <DataTemplate>
@@ -35,9 +39,10 @@
         </DataTemplate>
       </ListBox.ItemTemplate>
     </ListBox>
+    <Button Grid.Row="1" Grid.Column="0" Content="Add Guest" Command="{Binding AddGuestCommand}"/>
 
     <ListBox ItemsSource="{Binding SelectedItem.GuestBookPictures, ElementName=GuestsListBox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Background="Transparent"
-			Grid.Column="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0">
+			Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0">
       <ListBox.ItemsPanel>
         <ItemsPanelTemplate>
           <WrapPanel IsItemsHost="True"/>
@@ -54,7 +59,7 @@
       </ListBox.ItemTemplate>
     </ListBox>
 
-    <Grid Grid.Column="2">
+    <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="2">
        <Grid.RowDefinitions>
          <RowDefinition Height="Auto"/>
          <RowDefinition Height="*"/>

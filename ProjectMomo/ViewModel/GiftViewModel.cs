@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,7 +19,7 @@ namespace ProjectMomo.ViewModel
     #endregion
 
     #region Properties
-    public List<Guest> Guests
+    public ObservableCollection<Guest> Guests
     {
       get { return _shower.Guests; }
     }
@@ -26,11 +27,28 @@ namespace ProjectMomo.ViewModel
     public Guest SelectedGuest { get; set; }
     #endregion
 
+    public RelayCommand AddGroupCommand { get; set; }
+    
     public GiftViewModel(Shower shower)
     {
       _shower = shower;
       Header = App.Current.FindResource("GiftHeader").ToString();
+      AddGroupCommand = new RelayCommand(new Action<object>(AddGroup));
     }
+
+    private void AddGroup(object obj)
+    {
+      const bool isGroup = true;
+      GuestDialog dialog = new GuestDialog(isGroup);
+      if (dialog.ShowDialog() != true)
+        return;
+
+      DispatchService.Invoke(() =>
+      {
+        Guests.Add(dialog.CachedGuest);
+      });
+    }
+
 
     public void OnFetchPicture(ShowerPicture image)
     {
