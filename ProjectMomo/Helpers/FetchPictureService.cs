@@ -18,9 +18,22 @@ namespace ProjectMomo.Helpers
     private static string LocalDataDirectoryName = ".projectmomo";
     private string _localDataDirectoryPath;
 
+    private string DefaultFetchPictureDirectory 
+    {
+      get { return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\ProjectMomo"; }
+    }
+
     public FetchPictureService()
     {
       _listeners = new List<FetchPictureListener>();
+
+      if (string.IsNullOrEmpty(Properties.Settings.Default.FetchImageFilePath))
+      {
+        if (!Directory.Exists(DefaultFetchPictureDirectory))
+          Directory.CreateDirectory(DefaultFetchPictureDirectory);
+
+        Properties.Settings.Default.FetchImageFilePath = DefaultFetchPictureDirectory;
+      }
 
       _pngFileSystemWatcher = new FileSystemWatcher
       {
@@ -93,7 +106,7 @@ namespace ProjectMomo.Helpers
       Console.WriteLine("File: " + e.FullPath + " " + e.ChangeType);
       string newFilePath = _localDataDirectoryPath + "//" + e.Name;
 
-      if (!File.Exists(newFilePath))
+      if (!File.Exists(newFilePath) && File.Exists(e.FullPath) )
         File.Move(e.FullPath, newFilePath);
       else
         File.Delete(e.FullPath);

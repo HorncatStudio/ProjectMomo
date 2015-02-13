@@ -44,6 +44,12 @@ namespace ProjectMomo.ViewModel
     }
 
     #region Load/Save Operations
+    /// <summary>
+    /// todo - The load and save shower methods need to be refactored and put in
+    /// a repository instead of just being embedded into the view model.
+    /// Bad Angelina Bad. -.-;
+    /// </summary>
+    /// <param name="filepath"></param>
     public void SaveShower(string filepath)
     {
       XmlSerializer serializer = new XmlSerializer(typeof(Shower));
@@ -95,7 +101,7 @@ namespace ProjectMomo.ViewModel
       SaveShower( saveDialog.FileName );
     }
 
-    private void OnLoadShowerDialog(object obj)
+    public void OnLoadShowerDialog(object obj)
     {
       OpenFileDialog openDialog = new OpenFileDialog
       {

@@ -4,7 +4,8 @@
     xmlns:view="clr-namespace:ProjectMomo.View"
     xmlns:local="clr-namespace:ProjectMomo"
     xmlns:ViewModel="clr-namespace:ProjectMomo.ViewModel"
-    Title="Project Momo" Height="459" Width="831">
+    Title="Project Momo" Height="459" Width="831"
+    Icon="/Resources/peach1.png">
   <Window.Resources>
   </Window.Resources>
   <Grid Background="White">

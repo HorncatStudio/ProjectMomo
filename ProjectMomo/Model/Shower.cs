@@ -11,7 +11,7 @@ namespace ProjectMomo.Model
   {
     #region Properties
     public User Host { get; set; }
-    public User Parter { get; set; }
+    public User Partner { get; set; }
     public User Mama { get; set; }
     public ObservableCollection<Guest> Guests { get; set; }
     public ObservableCollection<ShowerPicture> MiscPictures { get; set; }
@@ -24,8 +24,8 @@ namespace ProjectMomo.Model
       get
       {
         string showerName = Mama.FirstName;
-        if (!string.IsNullOrEmpty(Parter.FirstName))
-          showerName += " & " + Parter.FirstName;
+        if (!string.IsNullOrEmpty(Partner.FirstName))
+          showerName += " & " + Partner.FirstName;
         showerName += " Baby Shower";
         return showerName;
       }
@@ -35,7 +35,7 @@ namespace ProjectMomo.Model
     public Shower()
     {
       Host = new User();
-      Parter = new User();
+      Partner = new User();
       Mama = new User();
 
       Guests = new ObservableCollection<Guest>();
@@ -52,19 +52,21 @@ namespace ProjectMomo.Model
     public void ShallowCopy(Shower shower)
     {
       Host = shower.Host;
-      Parter = shower.Parter;
+      Partner = shower.Partner;
       Mama = shower.Mama;
 
-      //Guests.Clear();
-      //foreach(Guest guest in shower.Guests)
-      //{
-      //  Guests.Add(guest);
-      //}
       Guests = shower.Guests;
       MiscPictures = shower.MiscPictures;
     }
 
     #region Methods
+
+    public bool IsEmpty()
+    {
+      return (string.IsNullOrEmpty(Mama.FirstName) &&
+              string.IsNullOrEmpty(Host.FirstName) );
+    }
+
     public bool ContainGuestNmae(string name)
     {
       foreach (var guest in Guests)

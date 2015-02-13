@@ -18,7 +18,6 @@ namespace ProjectMomo
   {
     // Infrastrucutre
     private IFetchPictureService _fetchPictureService;
-    private IShowerRepository _showerRepository;
     private ShowerImageRouter _pictureRouter;
 
     // Models
@@ -38,14 +37,12 @@ namespace ProjectMomo
     {
       // Services
       _fetchPictureService = new FetchPictureService();
-      _showerRepository = new FakeShowerRepository();
       _pictureRouter = new ShowerImageRouter();
 
       _fetchPictureService.RegisterListener(_pictureRouter);
 
       // Models
       _currentShower = new Shower();
-      _currentShower = _showerRepository.GetShower();
 
       // View Models
       _showerViewModel = new ShowerViewModel(_currentShower);
@@ -65,17 +62,21 @@ namespace ProjectMomo
 
     private void LoadShowerModel()
     {
-      if (File.Exists(Properties.Settings.Default.ShowerBackupFile))
-        try 
-        {
-          _showerViewModel.LoadShower(Properties.Settings.Default.ShowerBackupFile);
-        }
-        catch (Exception)
-        {
-          _currentShower.ShallowCopy(_showerRepository.GetShower());
-        }
-      else
-        _currentShower.ShallowCopy(_showerRepository.GetShower());
+      if (!File.Exists(Properties.Settings.Default.ShowerBackupFile))
+      {
+        DefaultShowerRepository defaultShowerRepository = new DefaultShowerRepository();
+        _currentShower.ShallowCopy(defaultShowerRepository.GetShower());
+        return;
+      }
+      
+      try
+      {
+        _showerViewModel.LoadShower(Properties.Settings.Default.ShowerBackupFile);
+      }
+      catch (Exception)
+      {
+        Console.WriteLine("Debug - Using empty shower since backupfile does not exist.");
+      }
     }
 
     /// <summary>
@@ -113,6 +114,7 @@ namespace ProjectMomo
 
       _fetchPictureService.Start();
     }
+
 
     public void Stop()
     {

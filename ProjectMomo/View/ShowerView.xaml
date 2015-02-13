@@ -63,7 +63,7 @@
               <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
           <Image Grid.Column="0" Source="/Resources\export1.png" Width="32"/>
-            <TextBox Grid.Column="1" Background="Transparent" BorderThickness="0">Export Shower</TextBox>
+          <Label Grid.Column="1" Background="Transparent" BorderThickness="0">Export Shower</Label>
           </Grid>
         </Button>
        <Button IsEnabled="True"  Margin="5" Command="{Binding LoadShowerCommand}">
@@ -73,7 +73,7 @@
             <ColumnDefinition Width="*"/>
           </Grid.ColumnDefinitions>
           <Image Grid.Column="0" Source="/Resources\import1.png" Width="32"/>
-          <TextBox Grid.Column="1" Background="Transparent" BorderThickness="0">Import Shower</TextBox>
+          <Label Grid.Column="1" Background="Transparent" BorderThickness="0">Import Shower</Label>
         </Grid>
       </Button>
        <Button Margin="5" IsEnabled="False">
@@ -83,7 +83,7 @@
             <ColumnDefinition Width="*"/>
           </Grid.ColumnDefinitions>
           <Image Grid.Column="0" Source="/Resources\gift41.png"/>
-          <TextBox Grid.Column="1" Background="Transparent" BorderThickness="0">Print Gifts</TextBox>
+          <Label Grid.Column="1" Background="Transparent" BorderThickness="0">Print Gifts</Label>
         </Grid>
       </Button>
        <Button Command="{Binding ImportGuestsCommand}">
@@ -93,7 +93,7 @@
               <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
           <Image Grid.Column="0" Source="/Resources\group58.png" Width="32"/>
-            <TextBox Grid.Column="1" Background="Transparent" BorderThickness="0">Import Guests</TextBox>
+          <Label Grid.Column="1" Background="Transparent" BorderThickness="0">Import Guests</Label>
           </Grid>
         </Button>
       </StackPanel>

@@ -15,7 +15,7 @@ namespace ProjectMomo.Helpers
       Shower shower = new Shower();
       shower.Host = new User {FirstName = "Ashley", Lastname = "Grenon", Email = "ashley.grenon@gmail.com"};
       shower.Mama = new User{FirstName = "Angelina", Lastname = "Uno-Antonison", Email = "ange.unoantonison@gmail.com"};
-      shower.Parter = new User { FirstName = "Shinichi", Lastname = "Uno", Email = "uno.shinichi11@gmail.com" };
+      shower.Partner = new User { FirstName = "Shinichi", Lastname = "Uno", Email = "uno.shinichi11@gmail.com" };
       
       string fullPicturePath = Path.GetFullPath("Angelina&Shinichi_056.jpg");
 

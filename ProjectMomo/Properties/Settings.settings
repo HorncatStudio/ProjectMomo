@@ -8,5 +8,8 @@
     <Setting Name="ShowerBackupFile" Type="System.String" Scope="User">
       <Value Profile="(Default)">.backupshower.xml</Value>
     </Setting>
+    <Setting Name="FirstTime" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -153,6 +153,26 @@ namespace ProjectMomo.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap peach1 {
+            get {
+                object obj = ResourceManager.GetObject("peach1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon peach11 {
+            get {
+                object obj = ResourceManager.GetObject("peach11", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ProjectMomoGraphicWithoutBorder {
             get {
                 object obj = ResourceManager.GetObject("ProjectMomoGraphicWithoutBorder", resourceCulture);

@@ -10,6 +10,7 @@ namespace ProjectMomo.Model
     public string FirstName { get; set; }
     public string Lastname { get; set; }
     public string Email { get;set; }
+    public string Address { get; set; }
     public List<Shower> RegisteredShowers { get; set; }
 
     public User()
