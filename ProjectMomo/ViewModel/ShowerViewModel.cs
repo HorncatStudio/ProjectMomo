@@ -12,32 +12,38 @@ namespace ProjectMomo.ViewModel
 {
   public class ShowerViewModel : TabViewModel
   {
+    #region Properties
     public string ShowerName
     {
       get { return _showerModel.ShowerName; }
     }
-
     public ObservableCollection<ShowerPicture> ShowerPictures
     {
       get { return _showerModel.MiscPictures; }
     }
+    #endregion
 
     private Shower _showerModel;
 
+    #region Commands
     public RelayCommand ExportShowerCommand { get; set; }
     public RelayCommand LoadShowerCommand { get; set; }
     public RelayCommand ImportGuestsCommand { get; set; }
+    public RelayCommand DisplayPicCommand { get; set; }
+    #endregion
 
     public ShowerViewModel(Shower shower)
     {
       _showerModel = shower;
       Header = App.Current.FindResource("ShowerHeader").ToString();
+
       ExportShowerCommand = new RelayCommand(new Action<object>(OnExportShower));
       LoadShowerCommand = new RelayCommand(new Action<object>(OnLoadShowerDialog));
       ImportGuestsCommand = new RelayCommand(new Action<object>(OnImportGuests));
+      DisplayPicCommand = new RelayCommand(new Action<object>(DisplayPicture));
     }
 
-
+    #region Load/Save Operations
     public void SaveShower(string filepath)
     {
       XmlSerializer serializer = new XmlSerializer(typeof(Shower));
@@ -69,7 +75,9 @@ namespace ProjectMomo.ViewModel
         Console.WriteLine("Failed to load XML document.");
       }
     }
+    #endregion
 
+    #region File Operations
     private void OnExportShower(object obj)
     {
       SaveFileDialog saveDialog = new SaveFileDialog
@@ -138,5 +146,20 @@ namespace ProjectMomo.ViewModel
         _showerModel.Guests.Add(guest);
       }
     }
+    #endregion
+
+    #region Display Operations
+    private void DisplayPicture(object obj)
+    {
+      if (obj == null)
+        return;
+
+      var win = new ShowerPictureDialog
+      {
+        Picture = (ShowerPicture)obj
+      };
+      win.Show();
+    }
+    #endregion
   }
 }

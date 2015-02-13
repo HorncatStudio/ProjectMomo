@@ -112,7 +112,14 @@
                         <Image.Effect>
                             <DropShadowEffect Opacity=".5" ShadowDepth="2" BlurRadius="7"/>
                         </Image.Effect>
-                    </Image>
+                        <Image.InputBindings>
+                          <MouseBinding MouseAction="LeftDoubleClick" 
+                                        Command="{Binding DataContext.DisplayPicCommand, 
+                                                          RelativeSource={RelativeSource FindAncestor, 
+                                                            AncestorType={x:Type UserControl}}}"
+                                        CommandParameter="{Binding .}"/>
+                        </Image.InputBindings>
+          </Image>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

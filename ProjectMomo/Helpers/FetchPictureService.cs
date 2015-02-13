@@ -8,7 +8,12 @@ namespace ProjectMomo.Helpers
 {
   public class FetchPictureService : IFetchPictureService
   {
-    private FileSystemWatcher _directoryWatcher = null;
+    /// <summary>
+    /// \todo - if adding more file system watchers, store them in a list
+    /// </summary>
+    private FileSystemWatcher _pngFileSystemWatcher = null;
+    private FileSystemWatcher _jpgFileSystemWatcher = null;
+
     private List<FetchPictureListener> _listeners = null;
     private static string LocalDataDirectoryName = ".projectmomo";
     private string _localDataDirectoryPath;
@@ -17,52 +22,78 @@ namespace ProjectMomo.Helpers
     {
       _listeners = new List<FetchPictureListener>();
 
-      _directoryWatcher = new FileSystemWatcher();
+      _pngFileSystemWatcher = new FileSystemWatcher
+      {
+        Path = Properties.Settings.Default.FetchImageFilePath,
+        NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName,
+        Filter = "*.png"
+      };
+      _pngFileSystemWatcher.Created += new FileSystemEventHandler(OnCreated);
 
-      _directoryWatcher.Path = Properties.Settings.Default.FetchImageFilePath;
-      _directoryWatcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName ;
-      _directoryWatcher.Filter = "*.png";
-      _directoryWatcher.Created += new FileSystemEventHandler(OnCreated);
+      _jpgFileSystemWatcher = new FileSystemWatcher
+      {
+        Path = Properties.Settings.Default.FetchImageFilePath,
+        NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName,
+        Filter = "*.jpg"
+      };
+      _jpgFileSystemWatcher.Created += new FileSystemEventHandler(OnCreated);
 
       _localDataDirectoryPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)
                                     + "//"  + LocalDataDirectoryName;
     }
+
+    #region State Operations
+    [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
+    public void Start()
+    {
+      if (!String.IsNullOrEmpty(_pngFileSystemWatcher.Path))
+        _pngFileSystemWatcher.EnableRaisingEvents = true;
+
+      if (!String.IsNullOrEmpty(_jpgFileSystemWatcher.Path))
+        _jpgFileSystemWatcher.EnableRaisingEvents = true;
+
+      CreateTempDirectory();
+    }
+
+    public void Stop()
+    {
+      _pngFileSystemWatcher.EnableRaisingEvents = false;
+      _jpgFileSystemWatcher.EnableRaisingEvents = false;
+    }
+    #endregion
 
     public void UpdateDirectoryToWatch(string directory)
     {
       if (String.IsNullOrEmpty(directory))
           return;
 
-      _directoryWatcher.Path = directory;
-      _directoryWatcher.EnableRaisingEvents = true;
+      _pngFileSystemWatcher.Path = directory;
+      _pngFileSystemWatcher.EnableRaisingEvents = true;
+
+      _jpgFileSystemWatcher.Path = directory;
+      _jpgFileSystemWatcher.EnableRaisingEvents = true;
     }
 
-    [PermissionSet(SecurityAction.Demand, Name="FullTrust")]
-    public void Start()
+    #region Listener operations
+    public void RegisterListener(FetchPictureListener listener)
     {
-      if( !String.IsNullOrEmpty(_directoryWatcher.Path) )
-        _directoryWatcher.EnableRaisingEvents = true;
-
-      CreateTempDirectory();
+      _listeners.Add(listener);
     }
 
-    private void CreateTempDirectory()
+    public void UnregisterListener(FetchPictureListener listener)
     {
-      if (!Directory.Exists(_localDataDirectoryPath))
-        Directory.CreateDirectory(_localDataDirectoryPath);
+      if (_listeners.Contains(listener))
+        _listeners.Remove(listener);
     }
+    #endregion
 
-    public void Stop()
-    {
-      _directoryWatcher.EnableRaisingEvents = false;
-    }
-
+    #region Internal Guts
     private void OnCreated(object source, FileSystemEventArgs e)
     {
       Console.WriteLine("File: " + e.FullPath + " " + e.ChangeType);
       string newFilePath = _localDataDirectoryPath + "//" + e.Name;
 
-      if( !File.Exists(newFilePath) )
+      if (!File.Exists(newFilePath))
         File.Move(e.FullPath, newFilePath);
       else
         File.Delete(e.FullPath);
@@ -77,16 +108,14 @@ namespace ProjectMomo.Helpers
         listener.OnFetchPicture(picture);
       }
     }
+    #endregion
 
-    public void RegisterListener(FetchPictureListener listener)
+    #region Helpers
+    private void CreateTempDirectory()
     {
-      _listeners.Add(listener);
+      if (!Directory.Exists(_localDataDirectoryPath))
+        Directory.CreateDirectory(_localDataDirectoryPath);
     }
-
-    public void UnregisterListener(FetchPictureListener listener)
-    {
-      if (_listeners.Contains(listener))
-        _listeners.Remove(listener);
-    }
+    #endregion
   }
 }

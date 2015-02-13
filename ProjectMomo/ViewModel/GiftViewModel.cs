@@ -27,13 +27,18 @@ namespace ProjectMomo.ViewModel
     public Guest SelectedGuest { get; set; }
     #endregion
 
+    #region Commands
     public RelayCommand AddGroupCommand { get; set; }
-    
+    public RelayCommand DisplayPicCommand { get; set; }
+    #endregion
+
     public GiftViewModel(Shower shower)
     {
       _shower = shower;
       Header = App.Current.FindResource("GiftHeader").ToString();
+
       AddGroupCommand = new RelayCommand(new Action<object>(AddGroup));
+      DisplayPicCommand = new RelayCommand(new Action<object>(DisplayPicture));
     }
 
     private void AddGroup(object obj)
@@ -63,5 +68,18 @@ namespace ProjectMomo.ViewModel
         SelectedGuest.ShowerGiftPictures.Add(image);
       });
     }
+
+    private void DisplayPicture(object obj)
+    {
+      if (obj == null)
+        return;
+
+      var win = new ShowerPictureDialog
+      {
+        Picture = (ShowerPicture)obj
+      };
+      win.Show();
+    }
+
   }
 }
