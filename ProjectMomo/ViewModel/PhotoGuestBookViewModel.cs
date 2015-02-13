@@ -48,8 +48,6 @@ namespace ProjectMomo.ViewModel
       DisplayPicCommand = new RelayCommand(new Action<object>(DisplayPicture));
     }
 
-
-
     #region Command Methods
     private void AddGuest(object obj)
     {

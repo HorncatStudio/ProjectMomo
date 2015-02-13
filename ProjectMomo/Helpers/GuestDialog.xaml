@@ -13,7 +13,7 @@
         <ColumnDefinition Width="Auto"/>
         <ColumnDefinition Width="*"/>
       </Grid.ColumnDefinitions>
-    <Label  Grid.Row="0" Grid.Column="0" Content="Name" Foreground="LightSkyBlue" FontSize="18"/>
+    <Label  Grid.Row="0" Grid.Column="0" Content="Name*" Foreground="LightSkyBlue" FontSize="18"/>
     <TextBox Text="{Binding CachedGuest.Name, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" FontSize="18"/>
 
     <Label  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  Foreground="LightSkyBlue" Content="Address" FontSize="18"/>
