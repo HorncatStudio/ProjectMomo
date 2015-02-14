@@ -3,25 +3,42 @@ using System.Collections.Generic;
 using System.IO;
 using System.Security.Permissions;
 using ProjectMomo.Model;
+using System.Collections.Concurrent;
+using System.Threading;
 
 namespace ProjectMomo.Helpers
 {
   public class FetchPictureService : IFetchPictureService
   {
+    #region Members
+    #region File System watching
     /// <summary>
     /// \todo - if adding more file system watchers, store them in a list
     /// </summary>
     private FileSystemWatcher _pngFileSystemWatcher = null;
     private FileSystemWatcher _jpgFileSystemWatcher = null;
+    #endregion
 
+    #region Listeners Waiting for images
     private List<FetchPictureListener> _listeners = null;
+    #endregion
+
+    #region Directory paths
     private static string LocalDataDirectoryName = ".projectmomo";
     private string _localDataDirectoryPath;
-
     private string DefaultFetchPictureDirectory 
     {
       get { return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\ProjectMomo"; }
     }
+    #endregion
+
+    #region ConcurrentProcessing
+    ConcurrentQueue<string> tsFilesToProcess;
+    private volatile bool _isRunning;
+    Thread _sendPictureProcess;
+    #endregion
+
+    #endregion
 
     public FetchPictureService()
     {
@@ -53,12 +70,18 @@ namespace ProjectMomo.Helpers
 
       _localDataDirectoryPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)
                                     + "//"  + LocalDataDirectoryName;
+
+      tsFilesToProcess = new ConcurrentQueue<string>();
+      _isRunning = false;
+      _sendPictureProcess = new Thread(this.ProcessImage);
     }
 
     #region State Operations
     [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
     public void Start()
     {
+      StartThread();
+
       if (!String.IsNullOrEmpty(_pngFileSystemWatcher.Path))
         _pngFileSystemWatcher.EnableRaisingEvents = true;
 
@@ -72,6 +95,8 @@ namespace ProjectMomo.Helpers
     {
       _pngFileSystemWatcher.EnableRaisingEvents = false;
       _jpgFileSystemWatcher.EnableRaisingEvents = false;
+
+      StopThread();
     }
     #endregion
 
@@ -103,13 +128,55 @@ namespace ProjectMomo.Helpers
     #region Internal Guts
     private void OnCreated(object source, FileSystemEventArgs e)
     {
-      Console.WriteLine("File: " + e.FullPath + " " + e.ChangeType);
-      string newFilePath = _localDataDirectoryPath + "//" + e.Name;
+      Console.WriteLine("Enqueing File To Be Processed: " + e.FullPath + " " + e.ChangeType);
+      tsFilesToProcess.Enqueue(e.FullPath);
+    }
+    #endregion
 
-      if (!File.Exists(newFilePath) && File.Exists(e.FullPath) )
-        File.Move(e.FullPath, newFilePath);
+    #region AsyncConsumer
+
+    private void StartThread()
+    {
+      _isRunning = true;
+      _sendPictureProcess.Start();
+    }
+    private void StopThread()
+    {
+      _isRunning = false;
+      _sendPictureProcess.Join();
+    }
+
+    private void ProcessImage()
+    {
+      string fileToProess;
+      FileInfo fileInfo;
+
+      while (_isRunning)
+      {
+        while( tsFilesToProcess.TryDequeue(out fileToProess) )
+        {
+          fileInfo = new FileInfo(fileToProess);
+          while( IsFileLocked(fileInfo) )
+          {
+            Console.WriteLine("Waiting for to be available : " + fileInfo.FullName);
+            //wait here - sleep thread for a few miliseconds maybe?
+          }
+
+          Console.WriteLine("File available sending picture : " + fileInfo.FullName);
+          SendPicture(fileToProess);
+        }
+      }
+    }
+
+    private void SendPicture( string imageFilepath )
+    {
+      FileInfo imageInfo = new FileInfo(imageFilepath);
+      string newFilePath = _localDataDirectoryPath + "//" + imageInfo.Name;;
+
+      if (!File.Exists(newFilePath) && File.Exists(imageFilepath))
+        File.Move(imageFilepath, newFilePath);
       else
-        File.Delete(e.FullPath);
+        File.Delete(imageFilepath);
 
       ShowerPicture picture = new ShowerPicture
       {
@@ -120,6 +187,40 @@ namespace ProjectMomo.Helpers
       {
         listener.OnFetchPicture(picture);
       }
+    }
+
+    /// <summary>
+    /// A method to ping if the file is still being used by the FileSystemWatcher.
+    /// Seems a bit intensive as a check but will be good enough for now.
+    /// Ref: http://stackoverflow.com/questions/876473/is-therehttp://stackoverflow.com/questions/876473/is-there-a-way-to-check-if-a-file-is-in-use-a-way-to-check-if-a-file-is-in-use
+    /// note - may cause race condition if file is acquired again after it was accessed.
+    ///        should look into other methods maybe?
+    /// </summary>
+    /// <param name="file"></param>
+    /// <returns></returns>
+    protected virtual bool IsFileLocked(FileInfo file)
+    {
+      FileStream stream = null;
+      try
+      {
+        stream = file.Open(FileMode.Open, FileAccess.Read, FileShare.None);
+      }
+      catch (IOException)
+      {
+        //the file is unavailable because it is:
+        //still being written to
+        //or being processed by another thread
+        //or does not exist (has already been processed)
+        return true;
+      }
+      finally
+      {
+        if (stream != null)
+          stream.Close();
+      }
+
+      //file is not locked
+      return false;
     }
     #endregion
 
