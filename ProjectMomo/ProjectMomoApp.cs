@@ -118,6 +118,7 @@ namespace ProjectMomo
 
     public void Stop()
     {
+      Properties.Settings.Default.Save();
       _showerViewModel.SaveShower();
       _fetchPictureService.Stop();
     }
