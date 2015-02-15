@@ -5,6 +5,8 @@ using System.Security.Permissions;
 using ProjectMomo.Model;
 using System.Collections.Concurrent;
 using System.Threading;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace ProjectMomo.Helpers
 {
@@ -26,6 +28,7 @@ namespace ProjectMomo.Helpers
     #region Directory paths
     private static string LocalDataDirectoryName = ".projectmomo";
     private string _localDataDirectoryPath;
+    private string _cachedImageDataDirectoryPath;
     private string DefaultFetchPictureDirectory 
     {
       get { return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\ProjectMomo"; }
@@ -70,6 +73,7 @@ namespace ProjectMomo.Helpers
 
       _localDataDirectoryPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)
                                     + "//"  + LocalDataDirectoryName;
+      _cachedImageDataDirectoryPath = _localDataDirectoryPath + "//thumbs";
 
       tsFilesToProcess = new ConcurrentQueue<string>();
       _isRunning = false;
@@ -80,6 +84,8 @@ namespace ProjectMomo.Helpers
     [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
     public void Start()
     {
+      CreateTempDirectory();
+
       StartThread();
 
       if (!String.IsNullOrEmpty(_pngFileSystemWatcher.Path))
@@ -87,8 +93,6 @@ namespace ProjectMomo.Helpers
 
       if (!String.IsNullOrEmpty(_jpgFileSystemWatcher.Path))
         _jpgFileSystemWatcher.EnableRaisingEvents = true;
-
-      CreateTempDirectory();
     }
 
     public void Stop()
@@ -168,19 +172,34 @@ namespace ProjectMomo.Helpers
       }
     }
 
-    private void SendPicture( string imageFilepath )
+    private void SendPicture( string imageFilepath)
     {
       FileInfo imageInfo = new FileInfo(imageFilepath);
-      string newFilePath = _localDataDirectoryPath + "//" + imageInfo.Name;;
+      string newFilePath = _localDataDirectoryPath + "//" + imageInfo.Name;
+      long originalImageFileSize = imageInfo.Length;
 
       if (!File.Exists(newFilePath) && File.Exists(imageFilepath))
         File.Move(imageFilepath, newFilePath);
       else
         File.Delete(imageFilepath);
 
+      // only resize the image if it s larger then a Megabyte
+      string cachedImageFilePath;
+      const long oneMegabytesInBytes = 1000000;
+      if (originalImageFileSize >= oneMegabytesInBytes)
+      {
+        cachedImageFilePath = _cachedImageDataDirectoryPath + "//" + imageInfo.Name;
+        CacheImage(newFilePath, cachedImageFilePath);
+      }
+      else
+      {
+        cachedImageFilePath = newFilePath;
+      }
+
       ShowerPicture picture = new ShowerPicture
       {
-        AbsolutePath = newFilePath
+        AbsolutePath = newFilePath,
+        CachedImageFilePath = cachedImageFilePath
       };
 
       foreach (var listener in _listeners)
@@ -189,6 +208,24 @@ namespace ProjectMomo.Helpers
       }
     }
 
+    private void CacheImage( string movedPicture, string cachedPicturePath )
+    {
+      if (File.Exists(cachedPicturePath) )
+        return;
+
+      Image srcImage = Image.FromFile(movedPicture);
+      int cachedWidth = srcImage.Width / 10;
+      int cachedHeight = srcImage.Height / 10;
+      Bitmap newImage = new Bitmap(cachedWidth, cachedHeight);
+      using (Graphics gr = Graphics.FromImage(newImage))
+      {
+        gr.SmoothingMode = SmoothingMode.HighQuality;
+        gr.InterpolationMode = InterpolationMode.HighQualityBicubic;
+        gr.PixelOffsetMode = PixelOffsetMode.HighQuality;
+        gr.DrawImage(srcImage, new Rectangle(0, 0, cachedWidth, cachedHeight));
+      }
+      newImage.Save(cachedPicturePath);
+    }
     /// <summary>
     /// A method to ping if the file is still being used by the FileSystemWatcher.
     /// Seems a bit intensive as a check but will be good enough for now.
@@ -229,6 +266,9 @@ namespace ProjectMomo.Helpers
     {
       if (!Directory.Exists(_localDataDirectoryPath))
         Directory.CreateDirectory(_localDataDirectoryPath);
+
+      if (!Directory.Exists(_cachedImageDataDirectoryPath))
+        Directory.CreateDirectory(_cachedImageDataDirectoryPath);
     }
     #endregion
   }

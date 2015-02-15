@@ -63,7 +63,7 @@
        <Label Grid.Row="2" Content="Gift Picture" FontSize="22"/>
       <Button Grid.Row="2" Grid.Column="1" Content="{StaticResource ChooseGiftImage}" MaxWidth="24" MaxHeight="24" Command="{Binding AssignGiftPicture}"/>
 
-      <Image Grid.Row="3"  Grid.ColumnSpan="2" Source="{Binding SelectedItem.GiftPicture.AbsolutePath, ElementName=GuestsListBox, UpdateSourceTrigger=PropertyChanged}"  Margin="5" />
+            <Image Grid.Row="3"  Grid.ColumnSpan="2" Source="{Binding SelectedItem.GiftPicture.CachedImageFilePath, ElementName=GuestsListBox, UpdateSourceTrigger=PropertyChanged}"  Margin="5" />
      </Grid>
     
     <ListBox ItemsSource="{Binding SelectedItem.GuestBookPictures, ElementName=GuestsListBox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedImage}" Background="Transparent"
@@ -76,7 +76,7 @@
       
       <ListBox.ItemTemplate>
         <DataTemplate>
-          <Image Source="{Binding AbsolutePath}"  Margin="5" Width="120" Height="120">
+                    <Image Source="{Binding CachedImageFilePath}"  Margin="5" Width="120" Height="120">
             <Image.Effect>
               <DropShadowEffect Opacity=".5" ShadowDepth="2" BlurRadius="7"/>
             </Image.Effect>

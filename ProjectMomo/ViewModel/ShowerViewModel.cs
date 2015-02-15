@@ -87,11 +87,11 @@ namespace ProjectMomo.ViewModel
     private void OnExportShower(object obj)
     {
       SaveFileDialog saveDialog = new SaveFileDialog
-        {
-          FileName = Settings.Default.ShowerBackupFile,
-          DefaultExt = "*.xml",
-          Filter = "Shower XML documents (.xml)|*.xml"
-        };
+      {
+        FileName = Settings.Default.ShowerBackupFile,
+        DefaultExt = "*.xml",
+        Filter = "Shower XML documents (.xml)|*.xml"
+      };
 
       Nullable<bool> result = saveDialog.ShowDialog();
 

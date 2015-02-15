@@ -49,7 +49,7 @@
       </ListBox.ItemsPanel>
       <ListBox.ItemTemplate>
         <DataTemplate>
-          <Image Source="{Binding AbsolutePath}"  Margin="5" Width="120" Height="120">
+            <Image Source="{Binding CachedImageFilePath}"  Margin="5" Width="120" Height="120">
             <Image.Effect>
               <DropShadowEffect Opacity=".5" ShadowDepth="2" BlurRadius="7"/>
             </Image.Effect>

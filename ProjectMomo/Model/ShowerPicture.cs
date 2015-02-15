@@ -32,5 +32,7 @@ namespace ProjectMomo.Model
           _absoluteFilePath = value;
       }
     }
+
+    public string CachedImageFilePath { get; set; }
   }
 }
